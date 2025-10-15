@@ -6,8 +6,6 @@ dotenv.config({path: '.env'})
 
 app.get('/', (req, res)=>{
     res.send("Test Success ✅")
-    console.log("Coneents Inside req object in the request: ", req)
-    console.log("Coneents Inside res object in the request", res)
     console.log(`Request received for ${req.url} using ${req.method} method`)
 })
 
