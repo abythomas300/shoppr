@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const dbConfiguration = require('./config/db')
 const expressSession = require('express-session')
 const homeController = require('./controllers/homeController')
+const authRouter = require('./routes/authRoutes')
 
 // package configurations
 const app = express()
@@ -17,6 +18,9 @@ app.use(expressSession({
     saveUninitialized: false
 }))
 
+
+// route specific middlewares
+app.use('/auth', authRouter)
 
 // route handlers
 app.get('/', homeController.displayHomepage)
