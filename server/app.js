@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const dbConfiguration = require('./config/db')
 const expressSession = require('express-session')
+const homeController = require('./controllers/homeController')
 
 // package configurations
 const app = express()
@@ -16,17 +17,9 @@ app.use(expressSession({
     saveUninitialized: false
 }))
 
-// route handlers
-app.get('/', (req, res)=>{
-    console.log("SESSION DETAILS: ")
-    console.log(req.session)
-    res.send("Test Success ✅")
-    
-})
 
-app.post('/', (req, res)=>{
-    res.send(req.body)
-})
+// route handlers
+app.get('/', homeController.displayHomepage)
 
 
 // start server
