@@ -26,8 +26,33 @@ function displayLoginPage(req, res) {
     res.send("Shoppr Login Page ✅")
 }
 
-function loginUser(req, res) {
-    res.send("This function will handle user login ✅")
+async function loginUser(req, res) {
+    try{
+        const usernameInput = req.body.username
+        const passwordInput = req.body.password
+        // fetching user details from DB
+        const userInfo = await userModel.findOne({username: usernameInput})
+        // comparing both hashes
+        const isVerfied = await bcrypt.compare(passwordInput, userInfo.password)
+        if(isVerfied) {
+            // if passwords match
+            req.session.user = {
+                username: userInfo.username,
+                role: userInfo.role,
+                isVerfied: userInfo.isVerified,
+            }
+            console.log("Login success\nSession Created: ", req.session.user)
+            res.send("Login Success ✅")
+        } else {
+            // if passwords does not match
+            console.log("Passwords does not match.")
+            res.send("Wrong Password. Check your password and try again.")
+        }
+    }
+    catch(error){
+        console.log("Login failed, reason: ", error)
+        res.send("Login failed, try again later.")
+    }
 }
 
 
