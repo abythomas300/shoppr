@@ -52,6 +52,9 @@ const userSchema = new mongoose.Schema({
         country: {type: String, required: true}
 
     }],
+    otp: {
+        type: Number
+    }
 },
 {
     timestamps: true
