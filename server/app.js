@@ -4,6 +4,7 @@ const dbConfiguration = require('./config/db')
 const expressSession = require('express-session')
 const homeController = require('./controllers/homeController')
 const authRouter = require('./routes/authRoutes')
+const cors = require("cors")
 
 // package configurations
 const app = express()
@@ -11,6 +12,7 @@ dotenv.config({path: '.env'})
 
 
 // general middlewares
+app.use(cors())
 app.use(express.json())
 app.use(expressSession({
     secret: process.env.SESSION_KEY,
