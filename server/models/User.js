@@ -4,8 +4,15 @@ const userSchema = new mongoose.Schema({
     username:{
         type: String,
         required: true,
-        trim: true,
-        unique: true
+        unique: true,
+        trim: true
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String
     },
     email: {
         type: String,
@@ -17,30 +24,25 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
-        unique: true
-    },
-    role: {
-        type: String,
-        enum: ['user', 'admin'],
-        default: 'user'
-    },
-    isVerified: {
-        type: Boolean,
-        default: false
-    },
-    firstName : {
-        type: String,
         required: true
-    },
-    lastName: {
-        type: String
     },
     phone: {
         type: String,
         required: true,
         match: [/^\+[1-9]\d{1,14}$/, 'Enter a valid phone number with country code'],  //E.164 standard
         unique: true
+    },
+    twoFactorEnabled: {
+        type: Boolean,
+        default: false
+    },
+    otp: {
+        type: Number
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     },
     address: [{  
         addressLabel: {type: String, required: true},
@@ -52,8 +54,8 @@ const userSchema = new mongoose.Schema({
         country: {type: String, required: true}
 
     }],
-    otp: {
-        type: Number
+    avatar: {
+        type: String
     }
 },
 {
