@@ -1,6 +1,8 @@
+import Header from './components/layout/Header'
+
 function App() {
     return(
-        <h1>Shoppr</h1>
+        <Header />
     )
 }
 
