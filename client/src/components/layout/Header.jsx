@@ -59,14 +59,14 @@ function Header() {
                         </div>
                     </div>
                     {/* Shoppig options Dropdown */}
-                    <ul tabIndex="-1" className="md:hidden menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-10 w-100 p-2 shadow ">
+                    <ul tabIndex="-1" className=" menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-10 w-100 p-2 shadow ">
                         <li className="text-6xl">
-                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-1"> <span className="text-secondary-content">Orders</span> <span className="badge">New</span> </a>     {/*dymanic*/}
-                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-1"> <span className="text-secondary-content">Cart</span> <span className="badge">New</span> </a>       {/*dymanic*/}
-                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-1"> <span className="text-secondary-content">Whishlist</span> <span className="badge">New</span> </a>  {/*dymanic*/}
-                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-1"> <span className="text-secondary-content">Profile</span> <span className="badge">New</span> </a>    {/*dymanic*/}
-                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-1"> <span className="text-secondary-content">Settings</span> <span className="badge">New</span> </a>   {/*dymanic*/}
-                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-1"> <span className="text-secondary-content">Logout</span> <span className="badge">New</span> </a>     {/*dymanic*/}
+                            <a className="md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2"> <span className="text-secondary-content">Orders</span> <span className="badge">New</span> </a>     {/*dymanic*/}
+                            <a className="md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2"> <span className="text-secondary-content">Cart</span> <span className="badge">New</span> </a>       {/*dymanic*/}
+                            <a className="md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2"> <span className="text-secondary-content">Whishlist</span> <span className="badge">New</span> </a>  {/*dymanic*/}
+                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-2"> <span className="text-secondary-content">Profile</span> <span className="badge">New</span> </a>    {/*dymanic*/}
+                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-2"> <span className="text-secondary-content">Settings</span> <span className="badge">New</span> </a>   {/*dymanic*/}
+                            <a className="justify-between text-lg hover:bg-primary border border-accent mb-2"> <span className="text-secondary-content">Logout</span> <span className="badge">New</span> </a>     {/*dymanic*/}
                         </li>
                     </ul>
                 </div>
