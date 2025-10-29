@@ -2,7 +2,7 @@
 function Header() {
     return (
 
-        <div className="navbar bg-primary shadow-lg gap-4 sticky top-0 sm:p-2 md:p-4">
+        <div className="navbar bg-primary shadow-lg gap-4 sticky top-0 z-50 sm:p-2 md:p-4">
 
             {/* Logo */}
             <div className="flex">
