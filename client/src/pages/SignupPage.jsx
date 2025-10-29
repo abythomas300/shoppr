@@ -79,7 +79,7 @@ function SignupPage() {
                                 <span>Country</span>
                             </label>
                             <hr className='mt-6 border-primary'/>
-                           <button className="btn btn-primary btn-ghost text-primary-content hover:text-base-100 mt-6 shadow-lg border-primary ">Login</button>
+                           <button className="btn btn-primary btn-ghost text-primary-content hover:text-base-100 mt-6 shadow-lg border-primary ">Register</button>
                             <div className="flex justify-center text-sm mt-4">
                                 Already have an account? <a href="" className='text-primary link text-md ms-2'>Log in</a>
                             </div>
