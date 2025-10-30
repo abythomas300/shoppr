@@ -2,8 +2,12 @@ import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import BannerCarousal from '../components/layout/BannerCarousal' 
 import TopDealCards from '../components/layout/TopDealCards'    
+import CategoryBar from '../components/layout/CategoryBar'
+import React, {useState} from "react"
 
 function Homepage() {
+
+    // Carousal Sample Data
     const sampleProducts = [
         {
           id: 1,
@@ -34,10 +38,18 @@ function Homepage() {
           image: "https://images.unsplash.com/photo-1635183277995-47c65398921d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687",
         },
       ];
+
+      const [setSelectedCategory] = useState("All");
+      const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+        console.log("User selected:", category);
+      };
+
     return(
         <>
             <Header />
-            <BannerCarousal />
+            <CategoryBar/>
+            <BannerCarousal onCategorySelect={handleCategorySelect}/>
             <TopDealCards products={sampleProducts}/>
             <Footer />
         </>
