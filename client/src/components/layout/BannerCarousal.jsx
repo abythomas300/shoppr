@@ -1,6 +1,6 @@
 function CarousalComponent() {
     return(
-                   <div className="flex w-full h-75 bg-base-100">
+                   <div className="flex w-full h-90 bg-base-100 my-0">
                    <div className="carousel w-full">
 
                        <div id="slide1" className="carousel-item relative w-full ">
