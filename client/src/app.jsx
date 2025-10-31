@@ -6,8 +6,8 @@ import LoginPage from './pages/LoginPage'
   function App() {
     return(
         <>
-            <SignupPage />
-            {/* <LoginPage /> */}
+            {/* <SignupPage /> */}
+            <LoginPage />
             {/* <Homepage /> */}
         </>
     )
