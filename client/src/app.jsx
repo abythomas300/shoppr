@@ -1,9 +1,14 @@
-  import Homepage from './pages/Homepage'
+import Homepage from './pages/Homepage'
+import SignupPage from './pages/SignupPage' 
+import LoginPage from './pages/LoginPage'
+
 
   function App() {
     return(
         <>
-            <Homepage />
+            <SignupPage />
+            {/* <LoginPage /> */}
+            {/* <Homepage /> */}
         </>
     )
 }

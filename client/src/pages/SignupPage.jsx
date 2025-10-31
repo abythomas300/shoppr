@@ -50,34 +50,6 @@ function SignupPage() {
                                 <input type="text" placeholder="Phone Number " className="input" />
                                 <span>Phone Number (with country code)</span>
                             </label>
-                            <label className="floating-label mt-4">
-                                <input type="text" placeholder="Address Label (e.g,. home, office)" className="input" />
-                                <span>Address Label (eg: home, office)</span>
-                            </label>
-                            <label className="floating-label mt-4">
-                                <input type="text" placeholder="House Name" className="input" />
-                                <span>House Name</span>
-                            </label>
-                            <label className="floating-label mt-4">
-                                <input type="text" placeholder="Street" className="input" />
-                                <span>Street</span>
-                            </label>
-                            <label className="floating-label mt-4">
-                                <input type="text" placeholder="City" className="input" />
-                                <span>City</span>
-                            </label>
-                            <label className="floating-label mt-4">
-                                <input type="text" placeholder="State" className="input" />
-                                <span>State</span>
-                            </label>
-                            <label className="floating-label mt-4">
-                                <input type="text" placeholder="Pincode" className="input" />
-                                <span>Pincode</span>
-                            </label>
-                            <label className="floating-label mt-4">
-                                <input type="text" placeholder="Country" className="input" />
-                                <span>Country</span>
-                            </label>
                             <hr className='mt-6 border-primary'/>
                            <button className="btn btn-primary btn-ghost text-primary-content hover:text-base-100 mt-6 shadow-lg border-primary ">Register</button>
                             <div className="flex justify-center text-sm mt-4">
