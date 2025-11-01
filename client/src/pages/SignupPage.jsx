@@ -30,7 +30,7 @@ function SignupPage() {
                                 <span>username</span>
                             </label>
                             <label className="floating-label mt-4">
-                                <input type="text" placeholder="password" className="input " />
+                                <input type="password" placeholder="password" className="input " />
                                 <span>password</span>
                             </label>
                             <div className="flex text-lg text-neutral underline mt-6 mb-2">Personal Details</div>
