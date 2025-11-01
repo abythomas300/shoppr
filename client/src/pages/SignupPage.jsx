@@ -26,28 +26,28 @@ function SignupPage() {
                         <form>
                             <div className="flex text-lg text-neutral underline mb-2">Access Credentials</div>
                             <label className="floating-label">
-                                <input type="text" placeholder="username" className="input" />
+                                <input type="text" placeholder="username" className="input" name="username"/>
                                 <span>username</span>
                             </label>
                             <label className="floating-label mt-4">
-                                <input type="password" placeholder="password" className="input " />
+                                <input type="password" placeholder="password" className="input " name="password"/>
                                 <span>password</span>
                             </label>
                             <div className="flex text-lg text-neutral underline mt-6 mb-2">Personal Details</div>
                             <label className="floating-label ">
-                                <input type="text" placeholder="First Name" className="input" />
+                                <input type="text" placeholder="First Name" className="input" name="firstname"/>
                                 <span>First Name</span>
                             </label>
                             <label className="floating-label mt-4">
-                                <input type="text" placeholder="Last Name" className="input" />
+                                <input type="text" placeholder="Last Name" className="input" name="lastname"/>
                                 <span>Last Name</span>
                             </label>
                             <label className="floating-label mt-4">
-                                <input type="text" placeholder="Email" className="input" />
+                                <input type="text" placeholder="Email" className="input" name="email"/>
                                 <span>Email</span>
                             </label>
                             <label className="floating-label mt-4">
-                                <input type="text" placeholder="Phone Number " className="input" />
+                                <input type="text" placeholder="Phone Number " className="input" name="phonenumber"/>
                                 <span>Phone Number (with country code)</span>
                             </label>
                             <hr className='mt-6 border-primary'/>
