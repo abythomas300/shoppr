@@ -25,11 +25,11 @@ function LoginPage() {
                     <div className="card-body">
                         <form>
                             <label className="floating-label">
-                                <input type="text" placeholder="email" className="input" />
+                                <input type="text" placeholder="email" className="input" name="email"/>
                                 <span>email</span>
                             </label>
                             <label className="floating-label mt-4">
-                                <input type="text" placeholder="password" className="input " />
+                                <input type="password" placeholder="password" className="input" name="password"/>
                                 <span>password</span>
                             </label>
                             <hr className='mt-6 border-primary'/>
