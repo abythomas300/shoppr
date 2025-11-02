@@ -18,10 +18,10 @@
     --color-neutral-content: oklch(92% 0.004 286.32);
     --color-info: #81B29A;
     --color-info-content: oklch(29% 0.066 243.157);
-    --color-success: oklch(58% 0.158 241.966);
+    --color-success: #2f855a;
     --color-success-content: oklch(98% 0.003 247.858);
-    --color-warning: #E9C46A;
-    --color-warning-content: oklch(41% 0.112 45.904);
+    --color-warning: #FFC302;
+    --color-warning-content: oklch(21% 0.006 285.885);
     --color-error: #E76F51;
     --color-error-content: oklch(27% 0.105 12.094);
     --radius-selector: 0.5rem;
