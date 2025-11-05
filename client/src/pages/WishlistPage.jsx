@@ -33,7 +33,12 @@ function WishlistPage() {
     
     return(
         <>
-            <Header />
+            <Header /> 
+
+            
+            <div className="max-w-6xl mx-auto px-4 py-3"> {/*Main Wrapper*/}
+
+            {/* Page Header - "My Wishlist" */}
             <div className="flex flex-row justify-center m-4  border-2 border-base-300 ">
                 <div className="flex flex-row  p-2">
                     <div className="flex">
@@ -43,7 +48,7 @@ function WishlistPage() {
             </div>
 
             
-                {SampleWhishlistProducts.map((product)=>{
+            {SampleWhishlistProducts.map((product)=>{
                     return(
 
                     <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md">
@@ -73,8 +78,10 @@ function WishlistPage() {
                         </div> 
                     </div>
                 </div>)
-                })}
-                <Footer />
+            })}
+            </div>
+
+            <Footer />
         </>
     )
 }
