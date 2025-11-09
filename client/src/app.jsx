@@ -4,6 +4,8 @@ import LoginPage from './pages/LoginPage'
 import CartPage from './pages/CartPage'
 import OrderPage from './pages/OrderPage'
 import WishlistPage from './pages/WishlistPage'
+import ProductPage from './pages/ProductPage'   
+import UserProfile from './pages/UserProfile'
 
   function App() {
 
@@ -57,7 +59,9 @@ import WishlistPage from './pages/WishlistPage'
             {/* <Homepage /> */}
             {/* <CartPage /> */}
             {/* <OrderPage orders={sampleOrders}/> */}
-            <WishlistPage />
+            {/* <WishlistPage /> */}
+            {/* <ProductPage />  */}
+            <UserProfile />
         </>
     )
 }
