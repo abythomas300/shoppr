@@ -1,5 +1,6 @@
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
+import ProductReviewSection from '../components/layout/ProductReviewSection'
 
 function ProductPage() {
     return(
@@ -178,6 +179,13 @@ function ProductPage() {
                     </div>
  
                 </div>
+
+                {/* Product review wrapper */}
+                <div className="flex min-h-[140px] col-span-12 p-4 gap-4">
+                  <ProductReviewSection />
+                </div>
+
+                
 
             </div>
 
