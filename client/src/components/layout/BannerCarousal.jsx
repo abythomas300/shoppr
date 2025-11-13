@@ -8,8 +8,8 @@ function CarousalComponent() {
                            src="https://images.unsplash.com/photo-1615859131861-052f0641a60e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1889"
                            className="w-full object-cover" />
                            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                               <a href="#slide2" className="btn btn-ghost">❮</a>
-                               <a href="#slide5" className="btn btn-ghost">❯</a>
+                               <a href="#slide5" className="btn btn-ghost">❮</a>
+                               <a href="#slide2" className="btn btn-ghost">❯</a>
                            </div>
                        </div>
 
@@ -18,8 +18,8 @@ function CarousalComponent() {
                            src="https://images.unsplash.com/photo-1615859131861-052f0641a60e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1889"
                            className="w-full object-cover" />
                            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                               <a href="#slide3" className="btn btn-ghost">❮</a>
-                               <a href="#slide1" className="btn btn-ghost">❯</a>
+                               <a href="#slide4" className="btn btn-ghost">❮</a>
+                               <a href="#slide3" className="btn btn-ghost">❯</a>
                            </div>
                        </div>
 
@@ -28,8 +28,8 @@ function CarousalComponent() {
                            src="https://images.unsplash.com/photo-1615859131861-052f0641a60e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1889"
                            className="w-full object-cover" />
                            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                               <a href="#slide4" className="btn btn-ghost">❮</a>
-                               <a href="#slide2" className="btn btn-ghost">❯</a>
+                               <a href="#slide3" className="btn btn-ghost">❮</a>
+                               <a href="#slide4" className="btn btn-ghost">❯</a>
                            </div>
                        </div>
 
@@ -38,8 +38,8 @@ function CarousalComponent() {
                            src="https://images.unsplash.com/photo-1615859131861-052f0641a60e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1889"
                            className="w-full object-cover" />
                            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                               <a href="#slide5" className="btn btn-ghost">❮</a>
-                               <a href="#slide3" className="btn btn-ghost">❯</a>
+                               <a href="#slide2" className="btn btn-ghost">❮</a>
+                               <a href="#slide5" className="btn btn-ghost">❯</a>
                            </div>
                        </div>
 
@@ -49,7 +49,7 @@ function CarousalComponent() {
                            className="w-full object-cover" />
                            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
                                <a href="#slide1" className="btn btn-ghost">❮</a>
-                               <a href="#slide4" className="btn btn-ghost">❯</a>
+                               <a href="#slide1" className="btn btn-ghost">❯</a>
                            </div>
                        </div> 
 
