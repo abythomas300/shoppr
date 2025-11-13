@@ -5,7 +5,7 @@ import {
   Home,
   ShoppingBasket,
   Sparkles,
-} from "lucide-react"; // DaisyUI + Lucide work beautifully together
+} from "lucide-react"; 
 
 const categories = [
   { id: 1, name: "Electronics", icon: <Tv className="w-6 h-6" /> },
@@ -17,8 +17,8 @@ const categories = [
 
 const CategoryBar = ({ onCategorySelect }) => {
   return (
-    <div className="w-full bg-base-300 shadow-sm my-4">
-      <div className="flex justify-center gap-4 overflow-x-auto px-4 py-2 sm:gap-6 scrollbar-hide">
+    <div className="w-full bg-base-300 shadow-sm">
+      <div className="flex md:justify-center gap-4 overflow-x-auto px-4 py-2 sm:gap-6 scrollbar-hide">
         {categories.map((category) => (
           <button
             key={category.id}
