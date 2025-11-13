@@ -6,7 +6,7 @@ function Header() {
 
             {/* Logo */}
             <div className="flex">
-                <a className="btn btn-ghost text-3xl sm:p-0 hover:bg-secondary hover:text-secondary-content" href="#">Shoppr</a>
+                <a className="btn btn-ghost text-4xl p-4 hover:bg-secondary hover:text-primary" href="#">Shoppr</a>
             </div>
 
             <div className="flex w-full justify-between">
