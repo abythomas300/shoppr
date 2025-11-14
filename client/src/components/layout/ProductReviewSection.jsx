@@ -102,7 +102,7 @@ function Rating({rating}) {
 				return <Fragment key={i}>{content}</Fragment>;
 			})}
 		</span>
-		<span className="mx-1">{rating.toFixed(1)}4</span>
+		<span className="mx-1">{rating.toFixed(1)}</span>
 	</p>
 	)
 }

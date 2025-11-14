@@ -2,11 +2,14 @@ import ToggleSwitch from "../components/common/ToggleSwitch"
 import UserIconSolid from "../components/common/UserIconSolid"
 import Header from "../components/layout/Header"
 import Footer from '../components/layout/Footer'
+import PageHeader from "../components/layout/PageHeader"
+
 
 function UserProfile() {
     return(
         <>
             <Header/>
+            <PageHeader pageName={"My Account"} />
             {/* Main wrapper */}
             <div className="max-w-6xl mx-auto px-4 py-3">
                 {/* profile page wrapper */}
@@ -66,7 +69,6 @@ function UserProfile() {
                                     <input type="number" className="input" placeholder="" name="pincode" value="old pincode"/>
                                 </fieldset>
                             </div>
-
                         {/* preferences section */}
                         <div>
                             <div className="p-4">

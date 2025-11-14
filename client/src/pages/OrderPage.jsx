@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import Header from "../components/layout/Header"
 import Footer from "../components/layout/Footer"
+import PageHeader from "../components/layout/PageHeader"
 
 const IconBack = ({ className = "w-5 h-5" }) => (
   <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -550,36 +551,13 @@ function OrdersPage({ orders }) {
 
   return (
     <>
-    <Header />
+    <Header/>
+    <PageHeader pageName={"My Orders"}/>
 
-    <header className="hidden md:block bg-base-100 shadow-sm z-50">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-3">
-          <button className="btn btn-ghost btn-square btn-sm">
-          </button>
-          <h1 className="flex-1 text-center text-lg sm:text-xl font-semibold">My Orders</h1>
-        </div>
-      </header>
-
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
       {/* Page padding responsive */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10 lg:px-24 py-4">
         {/* Header - mobile shows back + title, lg removes title per spec */}
-        <div className="md:hidden flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <button
-              className="btn btn-ghost btn-square"
-              aria-label="Go back"
-              onClick={() => window.history.back()}
-            >
-              <IconBack />
-            </button>
-            {!isLarge && <h1 className="text-xl font-semibold text-gray-900">My Orders</h1>}
-          </div>
-
-          {/* On lg, top right is empty cleaner top section */}
-          {isLarge && <div />} 
-        </div>
-
         {/* Search & Filters */}
         <div className="mb-4">
           <SearchBar

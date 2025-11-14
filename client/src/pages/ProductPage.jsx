@@ -1,13 +1,19 @@
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductReviewSection from '../components/layout/ProductReviewSection'
+import StickyPageHeader from "../components/layout/PageHeader"
+
+// fake data
+const productInfo = {
+  name: 'SONY PlayStation5 Console (slim) CFI-2008A01X 1024 GB (White)'
+}
 
 function ProductPage() {
     return(
         <>
         <Header />
-        
-        {/* Main Wrapper */}
+        <StickyPageHeader pageName={productInfo.name}/>
+        {/* Main Wrapper */} 
         <div className="max-w-6xl mx-auto px-4 py-3">
 
             {/* Product Details wrapper */}
