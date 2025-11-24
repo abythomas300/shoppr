@@ -35,11 +35,11 @@ function SignupPage() {
                             </label>
                             <div className="flex text-lg text-neutral underline mt-6 mb-2">Personal Details</div>
                             <label className="floating-label ">
-                                <input type="text" placeholder="First Name" className="input" name="firstname"/>
+                                <input type="text" placeholder="First Name" className="input" name="firstName"/>
                                 <span>First Name</span>
                             </label>
                             <label className="floating-label mt-4">
-                                <input type="text" placeholder="Last Name" className="input" name="lastname"/>
+                                <input type="text" placeholder="Last Name" className="input" name="lastName"/>
                                 <span>Last Name</span>
                             </label>
                             <label className="floating-label mt-4">
