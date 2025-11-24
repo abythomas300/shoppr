@@ -8,17 +8,18 @@ function displaySignupPage(req, res) {
 async function registerUser(req, res) {
     try{
         const rawUserInfo = req.body 
+        console.log(rawUserInfo)
         // generating password hash
         const hash = await bcrypt.hash(rawUserInfo.password, 10)
         const userInfoWithHashedPassword = {...rawUserInfo, password:hash}  // replacing password field with the password hash
         const data = new userModel(userInfoWithHashedPassword)
         await data.save()
         console.log("User info saved to DB successfully")
-        res.send("Registration Successful")
+        res.status(200).send("Registration Successful")
     }
     catch(error){
         console.log("User registration failed, reason: ", error)
-        res.send("Failed to register user")
+        res.status(500).send("Failed to register user")
     }
 }
 
