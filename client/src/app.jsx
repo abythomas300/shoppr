@@ -61,7 +61,7 @@ import {Routes, Route} from 'react-router-dom'
             <Routes>
                 <Route path='/' element={<Homepage />}></Route> 
                 <Route path='/login' element={<LoginPage />}></Route>
-                <Route path='/signup' element={<UserProfile />}></Route>
+                <Route path='/signup' element={<SignupPage />}></Route>
                 <Route path='/cart' element={<CartPage />}></Route>
                 <Route path='/orders' element={<OrderPage orders={sampleOrders}/>}></Route>
                 <Route path='/wishlist' element={<WishlistPage />}></Route>
