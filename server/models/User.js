@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    totpSharedKey: {
+        type: String,
+        required: true
+    },
     role: {
         type: String,
         enum: ['user', 'admin'],
