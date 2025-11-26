@@ -36,9 +36,6 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    otp: {
-        type: Number
-    },
     role: {
         type: String,
         enum: ['user', 'admin'],
