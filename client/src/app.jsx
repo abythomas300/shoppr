@@ -7,6 +7,7 @@ import WishlistPage from './pages/WishlistPage'
 import ProductPage from './pages/ProductPage'   
 import UserProfile from './pages/UserProfile'
 import FallbackPage from './pages/FallbackPage'
+import OTPPage from './pages/OTPPage'
 import ProductReviewSection from './components/layout/ProductReviewSection'
 import StickyHeader from './components/layout/PageHeader'
 import {Routes, Route} from 'react-router-dom'
@@ -66,6 +67,7 @@ import {Routes, Route} from 'react-router-dom'
                 <Route path='/orders' element={<OrderPage orders={sampleOrders}/>}></Route>
                 <Route path='/wishlist' element={<WishlistPage />}></Route>
                 <Route path='/product' element={<ProductPage />}></Route>
+                <Route path='/otp' element={<OTPPage />}></Route>
                 <Route path='*' element={<FallbackPage />}></Route>
             </Routes>
         </>
