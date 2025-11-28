@@ -26,12 +26,14 @@ function SignupPage() {
 
     const handleFormSubmission = async (event)=>{
         event.preventDefault()
-        console.log("Form to be sent to server --->")
-        console.log(formData)
         try{
             const response = await axios.post('http://localhost:3000/auth/signup', formData)
-            if(response.status === 200) navigate('/')
+            if(response.status === 201) {
+                alert(response.data.message)
+                navigate(`/otp?email=${response.data.email}`)
+            }
         }catch(error){
+            alert("An error occured. Try again later.")
             console.log("Error in registration, details: ", error)
         }
     }
