@@ -39,7 +39,6 @@ async function registerUser(req, res) {
             secret: userDetails.totpSharedKey
         })
         const token = totp.generate()
-        console.log("GENERATED TOKEN:", token)  // for test
         sendMail(token, userEmail)
         res.status(201).json({message: `OTP sent to ${userEmail} will be valid for 5 minutes.`, email: userEmail})
     }
