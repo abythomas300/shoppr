@@ -98,30 +98,27 @@ async function verifyOTP(req, res) {
 
 async function loginUser(req, res) {
     try{
-        const usernameInput = req.body.username
+        const emailInput = req.body.email
         const passwordInput = req.body.password
-        // fetching user details from DB
-        const userInfo = await userModel.findOne({username: usernameInput})
+        // fetch user details from DB
+        const userInfo = await userModel.findOne({email: emailInput})
+        // check whether user exists
+        if(userInfo === null) res.json({message: "User not found"})
         // comparing both hashes
         const isVerfied = await bcrypt.compare(passwordInput, userInfo.password)
         if(isVerfied) {
             // if passwords match
-            req.session.user = {
-                username: userInfo.username,
-                role: userInfo.role,
-                isVerfied: userInfo.isVerified,
-            }
-            console.log("Login success\nSession Created: ", req.session.user)
-            res.send("Login Success ✅")
+            console.log("User exists,passwords match,  login success")
+            res.status(201).json({message: 'Login success', username: userInfo.username})
         } else {
             // if passwords does not match
             console.log("Passwords does not match.")
-            res.send("Wrong Password. Check your password and try again.")
+            res.json({message: 'Login Failed. Wrong Password'})
         }
     }
     catch(error){
         console.log("Login failed, reason: ", error)
-        res.send("Login failed, try again later.")
+        res.status(500).json({message: "Login faile"})
     }
 }
 
