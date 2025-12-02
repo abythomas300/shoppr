@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const OTPAuth = require('otpauth')
 const nodemailer = require('nodemailer')
 const dotenv = require('dotenv')
+const jwt = require('jsonwebtoken')
 
 // initialize transporter object (nodemailer)
 const transporter = nodemailer.createTransport({
@@ -286,7 +287,17 @@ async function loginUser(req, res) {
         if(isVerfied) {
             // if passwords match
             console.log("User exists,passwords match,  login success")
-            res.status(201).json({message: 'Login success', username: userInfo.username})
+            // Generate JWT Token 
+            const userInfoPayload = {id: userInfo._id, role: userInfo.role}
+            const jwtToken = jwt.sign(userInfoPayload, process.env.JWT_SECRET_KEY, {expiresIn:'1hr'})
+            // send cookie with JWT authentication credentials
+            res.cookie('jwt', jwtToken, {
+              httpOnly: true, 
+              secure: false, 
+              sameSite: 'strict',
+              maxAge: 60*60*1000  // 1 hour
+            })
+            res.status(201).json({message: 'Login success, cookie sent', username: userInfo.username, token: jwtToken})
         } else {
             // if passwords does not match
             console.log("Passwords does not match.")
