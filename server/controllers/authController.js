@@ -310,9 +310,15 @@ async function loginUser(req, res) {
     }
 }
 
+function dashboardTest(req, res) { 
+  console.log("You are authorized!")
+  res.status(200).json({message: "Authorization verified."})
+}
+
 // exporting module
 module.exports = {
     registerUser,
     loginUser,
-    verifyOTP
+    verifyOTP, 
+    dashboardTest
 }
