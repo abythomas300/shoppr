@@ -11,6 +11,7 @@ import OTPPage from './pages/OTPPage'
 import ProductReviewSection from './components/layout/ProductReviewSection'
 import StickyHeader from './components/layout/PageHeader'
 import {Routes, Route} from 'react-router-dom'
+import './api/axiosConfig'
 
   function App() {
 
