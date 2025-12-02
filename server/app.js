@@ -5,6 +5,7 @@ const expressSession = require('express-session')
 const homeController = require('./controllers/homeController')
 const authRouter = require('./routes/authRoutes')
 const cors = require("cors")
+const cookieParser = require('cookie-parser')
 
 // package configurations
 const app = express()
@@ -14,6 +15,7 @@ dotenv.config({path: '.env'})
 // general middlewares
 app.use(cors())
 app.use(express.json())
+app.use(cookieParser())
 app.use(expressSession({
     secret: process.env.SESSION_KEY,
     resave: false, 
