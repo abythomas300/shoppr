@@ -13,7 +13,11 @@ dotenv.config({path: '.env'})
 
 
 // general middlewares
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'PATCH'],
+    credentials: true
+}))
 app.use(express.json())
 app.use(cookieParser())
 app.use(expressSession({
