@@ -68,6 +68,7 @@ import './api/axiosConfig'
                 <Route path='/orders' element={<OrderPage orders={sampleOrders}/>}></Route>
                 <Route path='/wishlist' element={<WishlistPage />}></Route>
                 <Route path='/product' element={<ProductPage />}></Route>
+                <Route path='/profile' element={<UserProfile />}></Route>
                 <Route path='/otp' element={<OTPPage />}></Route>
                 <Route path='*' element={<FallbackPage />}></Route>
             </Routes>
