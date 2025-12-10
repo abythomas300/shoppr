@@ -1,11 +1,12 @@
 import React from "react";
+import {useSelector } from "react-redux";
 
-function TopDealsCards(props) {
-        const products = props.products
+function TopDealsCards() {
+
+        const products = useSelector(state => state.products.items)
+
         return (
-
-          <section className="px-6 py-10 bg-base-200">
-
+          <section className="px-6 py-10 bg-base-200"> 
             <h2 className="text-2xl font-bold text-start mb-8">Recently Added</h2>
       
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
@@ -32,7 +33,7 @@ function TopDealsCards(props) {
                         </p>
                       )}
                       <p className="text-primary font-bold text-lg">
-                        ₹{product.price}
+                        <span className="mr-1">₹</span>{product.price}
                       </p>
                       <div className="card-actions mt-2">
                         <button className="btn btn-primary btn-sm text-sm ">
