@@ -1,10 +1,28 @@
 import React from "react";
-import {useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../features/cart/cartSlice";
 
 function TopDealsCards() {
 
         const products = useSelector(state => state.products.items)
+        const dispatch = useDispatch()
 
+        const handleAddToCartButtonClick = (id)=>{
+          // get selected product from global state
+          const selectedProduct = products.filter((product)=>{
+            if(product.id === id)
+              return product
+          })
+          // dispatch addToCart() from cartSlice
+          if(selectedProduct)
+            dispatch(addToCart(selectedProduct[0]))
+        }
+
+        const handleBuyNowButtonClick = (event)=>{
+          event.preventDefault()
+          console.log("buy now - button click test")
+        }
+        
         return (
           <section className="px-6 py-10 bg-base-200"> 
             <h2 className="text-2xl font-bold text-start mb-8">Recently Added</h2>
@@ -36,10 +54,10 @@ function TopDealsCards() {
                         <span className="mr-1">₹</span>{product.price}
                       </p>
                       <div className="card-actions mt-2">
-                        <button className="btn btn-primary btn-sm text-sm ">
+                        <button onClick={ ()=>{handleAddToCartButtonClick(product.id)} } className="btn btn-primary btn-sm text-sm ">
                           Add to Cart
                         </button>
-                        <button className="btn btn-primary btn-sm text-sm">
+                        <button onClick={handleBuyNowButtonClick} className="btn btn-primary btn-sm text-sm">
                           Buy now
                         </button>
                       </div>
