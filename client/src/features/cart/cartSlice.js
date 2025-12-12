@@ -11,11 +11,10 @@ const cartSlice = createSlice({
             state.items.push(action.payload)
         },
         removeFromCart(state, action) {
-            state.cartItems = state.cartItems.filter((cartItem, index)=>{
-                if(index !== action.payload)
+            state.items = state.items.filter((cartItem)=>{
+                if(cartItem.id !== action.payload.id)
                     return cartItem
             })
-            console.log("product removed from cart: ", action.payload) // for test
         }
     }
 })

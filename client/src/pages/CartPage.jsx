@@ -1,7 +1,8 @@
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import PageHeader from "../components/layout/PageHeader";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
+import {removeFromCart} from "../features/cart/cartSlice"
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -12,6 +13,17 @@ const TrashCan = ({ className = "w-5 h-5" }) => (
 function CartPage() {
 
     const items = useSelector(state => state.cart.items)
+    const dispatch = useDispatch()
+
+    const handleRemoveFromCartButtonClick = (id)=>{
+        console.log("DELETE BUTTON CLICK ON ID: ", id)
+        const selectedProduct = items.filter((item)=>{
+            if(item.id === id)
+                return item
+        })
+        if(selectedProduct[0])
+            dispatch(removeFromCart(selectedProduct[0]))
+    }
     
     return(
         <>
@@ -49,7 +61,7 @@ function CartPage() {
                             <div className="col-span-2">
                                 <div className="flex justify-center h-full">
                                     <div className="flex justify-center align-bottom">
-                                            <span className="btn btn-ghost"><TrashCan/></span>
+                                            <button onClick={()=>handleRemoveFromCartButtonClick(item.id)}><span className="btn btn-ghost"><TrashCan/></span></button>
                                     </div>
                                 </div>
                             </div>
