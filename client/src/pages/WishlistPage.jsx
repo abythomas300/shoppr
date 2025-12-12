@@ -1,7 +1,8 @@
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import PageHeader from "../components/layout/PageHeader";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {removeFromWishlist} from "../features/wishlist/wishlistSlice"
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -12,7 +13,18 @@ const TrashCan = ({ className = "w-5 h-5" }) => (
 function WishlistPage() {
 
     const items = useSelector(state => state.wishlist.items)
-    console.log(items)
+    const dispatch = useDispatch()
+
+    const handleRemoveFromWishlistButtonClick = (id)=>{
+        console.log("button click on id: ", id) // for test
+        const selectedItem = items.filter((item)=>{
+            if(item.id === id)
+                return item
+        })
+        if(selectedItem[0])
+            dispatch(removeFromWishlist(selectedItem[0]))
+    }
+
     return(
         <>
             <Header /> 
@@ -45,7 +57,7 @@ function WishlistPage() {
                             <div className="col-span-2">
                                 <div className="flex justify-center h-full">
                                     <div className="flex justify-center align-bottom">
-                                            <span className="btn btn-ghost"><TrashCan/></span>
+                                            <button onClick={()=>{handleRemoveFromWishlistButtonClick(item.id)}}><span className="btn btn-ghost"><TrashCan/></span></button>
                                     </div>
                                 </div>
                             </div>

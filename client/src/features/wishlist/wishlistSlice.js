@@ -12,8 +12,12 @@ const wishlistSlice = createSlice({
             console.log(`state: ${state.wishlistItems}, payload: ${action.payload}`)
         },
         removeFromWishlist(state, action) {
+            console.log("remove from wishlist method!!", action.payload) // for test
+            state.items = state.items.filter((item)=>{
+                if(item.id != action.payload.id)
+                    return item
+            })
             console.log("Item removed fron wishlist!")
-            console.log(`state: ${state.wishlistItems}, payload: ${action.payload}`)
         }
     }
 })
