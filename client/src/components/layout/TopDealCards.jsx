@@ -18,14 +18,14 @@ function TopDealsCards() {
                   >
                     <figure className="px-4 pt-4">
                       <img
-                        src={product.image}
-                        alt={product.name}
+                        src={product.images[0]}
+                        alt={product.title}
                         className="rounded-xl h-48 w-full object-cover"
                       />
                     </figure>
                     <div className="card-body items-center text-center">
                       <h3 className="card-title text-lg font-semibold">
-                        {product.name}
+                        {product.title}
                       </h3>
                       {product.description && (
                         <p className="text-sm text-base-content/70 line-clamp-2">
