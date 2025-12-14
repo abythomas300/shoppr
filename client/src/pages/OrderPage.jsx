@@ -38,8 +38,8 @@ function OrdersPage() {
                                 className="object-cover rounded-md"
                             />
                         </div>
-                        <div className="grid grid-cols-12 gap-4 w-full ms-4">
-                            <div className="flex col-span-10 ">
+                        <div className="grid grid-cols-10  gap-4 w-full ms-4">
+                            <div className="flex col-span-12 ">
                                 <div className="flex flex-col">
                                     <span className="font-semibold text-lg sm:text-base line-clamp-4">{item.title}</span>
                                     <span className="text-lg font-bold">Rs. {item.price}</span>
@@ -49,13 +49,13 @@ function OrdersPage() {
                                       </div>
                                 </div>
                             </div>
-                            <div className="col-span-2">
+                            {/* <div className="col-span-2">
                                 <div className="flex justify-center h-full">
                                     <div className="flex justify-center align-bottom">
                                             <span className="btn btn-ghost"><TrashCan/></span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div> 
                     </div>
                 </div>)
