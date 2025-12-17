@@ -28,15 +28,25 @@ function CartPage() {
     })
 
     const handleRemoveFromCartButtonClick = (id)=>{
-        console.log("DELETE BUTTON CLICK ON ID: ", id)
+        const selectedProduct = items.filter((item)=>{
+            if(item.id === id)
+                return item
+        })
+        console.log("to add to wishlist: ", selectedProduct[0])
+        if(selectedProduct[0])
+            dispatch(removeFromCart(selectedProduct[0]))
+    }
+    
+    const handleAddToWishlistButton = (id)=>{
+        console.log(id)
         const selectedProduct = items.filter((item)=>{
             if(item.id === id)
                 return item
         })
         if(selectedProduct[0])
-            dispatch(removeFromCart(selectedProduct[0]))
+            dispatch(addToWishlist(selectedProduct[0]))
     }
-    
+
     return(
         <>
             <Header /> 
@@ -66,7 +76,7 @@ function CartPage() {
                                     <span className="text-lg font-bold">{item.price}</span>
                                       <div className=" flex gap-2 col flex-wrap ">
                                       <button className="btn btn-ghost bg-primary w-50">Buy Now</button>
-                                      <button className="btn btn-ghost bg-primary w-50">Add to Wishlist</button>
+                                      <button onClick={()=> handleAddToWishlistButton(item.id)} className="btn btn-ghost bg-primary w-50">Add to Wishlist</button>
                                       </div>
                                 </div>
                             </div>
