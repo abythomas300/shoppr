@@ -3,6 +3,8 @@ import Footer from "../components/layout/Footer";
 import PageHeader from "../components/layout/PageHeader";
 import { useSelector, useDispatch } from "react-redux";
 import {removeFromWishlist} from "../features/wishlist/wishlistSlice"
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -14,6 +16,15 @@ function WishlistPage() {
 
     const items = useSelector(state => state.wishlist.items)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+
+    // redirect non-logged in user to login page
+        useEffect(()=>{
+            if(!isLoggedIn)
+                navigate('/login')
+        })    
 
     const handleRemoveFromWishlistButtonClick = (id)=>{
         console.log("button click on id: ", id) // for test

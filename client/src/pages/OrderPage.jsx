@@ -3,6 +3,8 @@ import Footer from "../components/layout/Footer";
 import PageHeader from "../components/layout/PageHeader";
 import StarRating from "../components/common/StarRating";
 import {useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -15,6 +17,14 @@ const TrashCan = ({ className = "w-5 h-5" }) => (
 function OrdersPage() {
     
     const orderedItems = useSelector(state => state.orders.items)
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+    const navigate = useNavigate()
+
+    // redirect non-logged in user to login page
+        useEffect(()=>{
+            if(!isLoggedIn)
+                navigate('/login')
+        })
 
     return(
         <>

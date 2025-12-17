@@ -3,6 +3,9 @@ import Footer from "../components/layout/Footer";
 import PageHeader from "../components/layout/PageHeader";
 import {useSelector, useDispatch} from "react-redux";
 import {removeFromCart} from "../features/cart/cartSlice"
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import {addToWishlist} from '../features/wishlist/wishlistSlice'
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -13,7 +16,16 @@ const TrashCan = ({ className = "w-5 h-5" }) => (
 function CartPage() {
 
     const items = useSelector(state => state.cart.items)
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    // redirect non-logged in user to login page
+    useEffect(()=>{
+        if(!isLoggedIn)
+            navigate('/login')
+    })
 
     const handleRemoveFromCartButtonClick = (id)=>{
         console.log("DELETE BUTTON CLICK ON ID: ", id)
