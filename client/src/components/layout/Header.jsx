@@ -1,6 +1,11 @@
 import {Link} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import HeaderProfileSection from './HeaderProfileSection'
 
 function Header() {
+
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+
     return (
 
         <div className="navbar bg-primary shadow-lg gap-4 sticky top-0 z-50 sm:p-2 md:p-4">
@@ -40,8 +45,6 @@ function Header() {
                             </div>
                         </div>
                     </Link>
-                    
-
                     <Link to="/wishlist">
                         <div tabIndex={0} role="button" className="btn btn-ghost p-2">
                             <div className="indicator">
@@ -54,33 +57,9 @@ function Header() {
                         </div>
                     </Link>
                     
-                    
+                    <HeaderProfileSection isLoggedIn={isLoggedIn}></HeaderProfileSection>
                 </div>
-
-
-                {/* Profile Icon and Dropdown */}
-                <div className="flex   dropdown dropdown-end justify-end gap-4">
-                    {/* Profile Icon */}
-                    <div tabIndex={0} role="button" className="btn btn-circle avatar ">
-                        <div className="w-10 rounded-full">
-                            <img 
-                            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"  // dynamic
-                            alt="user-profile-picture" />
-                        </div>
-                    </div>
-                    {/* Shoppig options Dropdown */}
-                    <ul tabIndex="-1" className=" md:hidden menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-10 w-100 p-2 shadow ">
-                        <li className="text-6xl">
-                            <Link className='md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2' to='/orders'><span className="text-secondary-content">Orders</span></Link>
-                            <Link className='md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2' to='/cart'><span className="text-secondary-content">Cart</span></Link>
-                            <Link className='md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2' to='/wishlist'><span className="text-secondary-content">Wishlist</span></Link>
-                            <Link className='md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2' to='/profile'><span className="text-secondary-content">Profile</span></Link>
-                            <Link className='md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2' to='/settings'><span className="text-secondary-content">Settings</span></Link>
-                            <Link className='md:hidden justify-between text-lg hover:bg-primary border border-accent mb-2' to='/logout'><span className="text-secondary-content">Logout</span></Link>
-                            </li>
-                    </ul>
-                </div>
-                </div>
+            </div>
 
             </div>
         </div>
