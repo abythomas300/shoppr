@@ -297,7 +297,9 @@ async function loginUser(req, res) {
               sameSite: 'strict',
               maxAge: 60*60*1000  // 1 hour
             })
-            res.status(201).json({message: 'Login success, cookie sent', username: userInfo.username, token: jwtToken})
+            // selecting necessary properties from userInfo to send as response payload
+            const {username, firstName, lastName, email, phone, twoFactorEnabled, role, address, avatar, createdAt} = userInfo 
+            res.status(200).json({message: 'Login success, cookie sent', success: true, userInfo: {username, firstName, lastName, email, phone, twoFactorEnabled, role, address, avatar, createdAt}})
         } else {
             // if passwords does not match
             console.log("Passwords does not match.")
