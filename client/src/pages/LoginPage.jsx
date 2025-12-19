@@ -3,11 +3,14 @@ import Footer from '../components/layout/Footer'
 import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setUserProfile, setUserRole, setLoginSuccess } from '../features/auth/authSlice'
 
 function LoginPage() {
 
-    // initialize useNavigate() hook
+    // initialize hooks
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const [formData, setFormData] = useState({
         email: '',
@@ -18,13 +21,21 @@ function LoginPage() {
         setFormData({...formData, [event.target.name]: event.target.value})
     }
 
+    const initializeAuthSlice = (userDetails) =>{
+        dispatch(setUserProfile(userDetails))
+        dispatch(setUserRole(userDetails.role))
+        dispatch(setLoginSuccess())
+    }
+
     const handleFormSubmission = async (event) => {
         event.preventDefault()
         try{
             const response = await axios.post('http://localhost:3000/auth/login', formData)
-            if(response.status === 201) {
-                alert(`Login successful, Welcome ${response.data.username} !`)
+            if(response.status === 200) {
+                const {userInfo} = response.data
+                alert(`Login successful, Welcome ${userInfo.username} !`)
                 navigate('/')
+                initializeAuthSlice(userInfo)
             } else {
                 alert(`Login failed. ${response.data.message}`)
             }
