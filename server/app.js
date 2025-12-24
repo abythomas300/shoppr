@@ -4,6 +4,7 @@ const dbConfiguration = require('./config/db')
 const expressSession = require('express-session')
 const homeController = require('./controllers/homeController')
 const authRouter = require('./routes/authRoutes')
+const productRouter = require('./routes/productRoutes')
 const cors = require("cors")
 const cookieParser = require('cookie-parser')
 
@@ -29,6 +30,7 @@ app.use(expressSession({
 
 // route specific middlewares
 app.use('/auth', authRouter)
+app.use('/product', productRouter)
 
 // route handlers
 app.get('/', homeController.displayHomepage)
