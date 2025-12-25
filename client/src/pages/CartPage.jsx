@@ -30,10 +30,10 @@ function CartPage() {
 
     const handleRemoveFromCartButtonClick = (id)=>{
         const selectedProduct = items.filter((item)=>{
-            if(item.id === id)
+            if(item._id === id)
                 return item
         })
-        console.log("to add to wishlist: ", selectedProduct[0])
+        console.log("Item to be removed from cart: ", selectedProduct[0])
         if(selectedProduct[0])
             dispatch(removeFromCart(selectedProduct[0]))
     }
@@ -41,7 +41,7 @@ function CartPage() {
     const handleAddToWishlistButton = (id)=>{
         console.log(id)
         const selectedProduct = items.filter((item)=>{
-            if(item.id === id)
+            if(item._id === id)
                 return item
         })
         if(selectedProduct[0])
@@ -61,7 +61,7 @@ function CartPage() {
           (items && items.length > 0) ?
             items.map((item)=>{
                     return(
-                    <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item.id}>
+                    <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item._id}>
                 
                     <div className="min-h-40 flex gap-4 w-full ">
                         <div className="flex max-w-40 max-h-40 min-w-40 min-h-40 " >
@@ -78,14 +78,14 @@ function CartPage() {
                                     <span className="text-lg font-bold">{item.price}</span>
                                       <div className=" flex gap-2 col flex-wrap ">
                                       <button className="btn btn-ghost bg-primary w-50">Buy Now</button>
-                                      <button onClick={()=> handleAddToWishlistButton(item.id)} className="btn btn-ghost bg-primary w-50">Add to Wishlist</button>
+                                      <button onClick={()=> handleAddToWishlistButton(item._id)} className="btn btn-ghost bg-primary w-50">Add to Wishlist</button>
                                       </div>
                                 </div>
                             </div>
                             <div className="col-span-2">
                                 <div className="flex justify-center h-full">
                                     <div className="flex justify-center align-bottom">
-                                            <button onClick={()=>handleRemoveFromCartButtonClick(item.id)}><span className="btn btn-ghost"><TrashCan/></span></button>
+                                            <button onClick={()=>handleRemoveFromCartButtonClick(item._id)}><span className="btn btn-ghost"><TrashCan/></span></button>
                                     </div>
                                 </div>
                             </div>
