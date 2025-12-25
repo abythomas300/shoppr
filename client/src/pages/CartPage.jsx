@@ -1,6 +1,7 @@
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import PageHeader from "../components/layout/PageHeader";
+import CartTotalPriceBanner from "../components/layout/CartTotalPriceBanner";
 import {useSelector, useDispatch} from "react-redux";
 import {removeFromCart} from "../features/cart/cartSlice"
 import { useNavigate } from "react-router-dom";
@@ -56,9 +57,10 @@ function CartPage() {
 
             <div className="max-w-6xl mx-auto px-4 py-3"> {/*Main Wrapper*/}
 
-            {items.map((item)=>{
+          {
+          (items && items.length > 0) ?
+            items.map((item)=>{
                     return(
-
                     <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item.id}>
                 
                     <div className="min-h-40 flex gap-4 w-full ">
@@ -90,9 +92,13 @@ function CartPage() {
                         </div> 
                     </div>
                 </div>)
-            })}
+            })
+            : <p className="text-center text-base-content/70 col-span-full"> No products in cart yet, try adding some. </p>
+            }
             </div>
-
+            {
+                (items.length === 0?  "": <CartTotalPriceBanner/>)
+            }
             <Footer />
         </>
     )
