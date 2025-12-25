@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import axios from 'axios';
 import { setProduct } from "../../features/products/productsSlice";
+import { addToWishlist } from "../../features/wishlist/wishlistSlice";
 
 function TopDealsCards() {
 
@@ -25,6 +26,17 @@ function TopDealsCards() {
           event.preventDefault()
           console.log("buy now - button click test")
         }
+
+        const handleAddToWishlistButton = (id)=>{
+            console.log(id)
+              const selectedProduct = products.filter((item)=>{
+                if(item._id === id)
+                  return item
+                })
+                if(selectedProduct[0])
+                  dispatch(addToWishlist(selectedProduct[0]))
+        }
+        
         
         // API call for getting products
         const getProducts = async () => {
@@ -82,6 +94,9 @@ function TopDealsCards() {
                         </button>
                         <button onClick={handleBuyNowButtonClick} className="btn btn-primary btn-sm text-sm">
                           Buy now
+                        </button>
+                        <button onClick={()=> handleAddToWishlistButton(product._id)} className="btn btn-primary btn-sm text-sm">
+                          Add to wishlist
                         </button>
                       </div>
                     </div>

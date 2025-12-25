@@ -27,9 +27,8 @@ function WishlistPage() {
         })    
 
     const handleRemoveFromWishlistButtonClick = (id)=>{
-        console.log("button click on id: ", id) // for test
         const selectedItem = items.filter((item)=>{
-            if(item.id === id)
+            if(item._id === id)
                 return item
         })
         if(selectedItem[0])
@@ -68,7 +67,7 @@ function WishlistPage() {
                             <div className="col-span-2">
                                 <div className="flex justify-center h-full">
                                     <div className="flex justify-center align-bottom">
-                                            <button onClick={()=>{handleRemoveFromWishlistButtonClick(item.id)}}><span className="btn btn-ghost"><TrashCan/></span></button>
+                                            <button onClick={()=>{handleRemoveFromWishlistButtonClick(item._id)}}><span className="btn btn-ghost"><TrashCan/></span></button>
                                     </div>
                                 </div>
                             </div>
