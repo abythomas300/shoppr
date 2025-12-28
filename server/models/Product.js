@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const Category = require('./Category')
 
 const productSchema = new mongoose.Schema({
     title: {
@@ -24,8 +25,7 @@ const productSchema = new mongoose.Schema({
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
-        required: true
+        ref: Category
     },
     brand: {
         type: String, 
