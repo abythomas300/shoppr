@@ -6,30 +6,30 @@ dotenv.config({path: '../.env'})
 
 // sample data
 const data = {
-    username: 'maverick',
-    email: 'maverick@gmail.com',
-    password: 'ilovegoose',
-    firstName: 'Pete',
-    // role  --skipped
+    username: 'username',
+    email: 'username@smtp-name.tld',
+    password: 'password',
+    firstName: 'first-name',
+    // role  --skipped 
     // verified -- skipped
-    lastName: 'Mitchell',
-    phone: '+91123456789',
+    lastName: 'last-name',
+    phone: '+000000000000',
     address: [{
-        addressLabel: 'Office',
-        housename: 'Sky house',
-        street: 'Malibu Street',
-        city: 'Los Angeles',
-        state: 'California',
-        country: 'USA',
+        addressLabel: 'address-1-label',
+        housename: 'house-1-name',
+        street: 'street-name',
+        city: 'street-name',
+        state: 'state-name',
+        country: 'country-name',
         pincode: '90001'
     },
     {
-        addressLabel: 'Home',
-        housename: 'Home2',
-        street: 'Street2',
-        city: 'City2',
-        state: 'State2',
-        country: 'Country2',
+        addressLabel: 'address-2-label',
+        housename: 'house-2-name',
+        street: 'street-name',
+        city: 'city-2-name',
+        state: 'state-2-name',
+        country: 'country-2-name',
         pincode: '1234567'
     }
 ]
