@@ -26,4 +26,27 @@ async function getProductById(req, res) {
     }
 }
 
-module.exports = {getProducts, getProductById}
+async function getProductsByCategory(req, res) {
+    try{
+        const categoryName = req.params.name.toLowerCase()
+        const products = await productModel.find().populate('category')
+        // Include only product that belongs to requested category
+        const categoryProducts = products.filter((product)=>{
+            if(product.category.name.toLowerCase() === categoryName) {
+                return product
+            }
+        })
+        // Check if category exists
+        if(categoryProducts.length === 0) {
+            res.status(400).json({success: false, message: "Category does not exist."})
+        } else {
+            res.status(200).json({success: true, data: categoryProducts})
+        }
+        
+    }catch(error) {
+        console.log("Cannot get category products, reason: ", error)
+        res.status(500).json({message: "Cannot get products, server error."})
+    }
+}
+
+module.exports = {getProducts, getProductById, getProductsByCategory}
