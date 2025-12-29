@@ -3,6 +3,7 @@ import { addToCart } from "../../features/cart/cartSlice";
 import axios from 'axios';
 import { setProduct } from "../../features/products/productsSlice";
 import { addToWishlist } from "../../features/wishlist/wishlistSlice";
+import { Link } from "react-router-dom";
 
 function TopDealsCards() {
 
@@ -54,7 +55,7 @@ function TopDealsCards() {
           }
         }
 
-        // Do API call for getting products only if the productsSlice state is null (using useState is causing re-render loop)
+        // Do API call for getting products only if the productsSlice state is null 
         if(products === null)
           getProducts()
 
@@ -66,7 +67,7 @@ function TopDealsCards() {
               {(products && products.length > 0) ? (
                 products.map((product) => (
                   <div
-                    key={product.id}
+                    key={product._id}
                     className="card bg-base-100 shadow-xl hover:shadow-2xl transition-shadow duration-300"
                   >
                     <figure className="px-4 pt-4">
@@ -77,9 +78,11 @@ function TopDealsCards() {
                       />
                     </figure>
                     <div className="card-body items-center text-center">
-                      <h3 className="card-title text-lg font-semibold">
-                        {product.title}
-                      </h3>
+                      <Link to={`/product/${product._id}`}>
+                        <h3 className="card-title text-lg font-semibold hover:text-primary">
+                          {product.title}
+                        </h3>
+                      </Link>
                       {product.description && (
                         <p className="text-sm text-base-content/70 line-clamp-2">
                           {product.description}
