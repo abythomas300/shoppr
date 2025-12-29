@@ -8,6 +8,7 @@ import ProductPage from './pages/ProductPage'
 import UserProfile from './pages/UserProfile'
 import FallbackPage from './pages/FallbackPage'
 import OTPPage from './pages/OTPPage'
+import CategoryPage from './pages/CategoryPage'
 import {Routes, Route} from 'react-router-dom'
 import './api/axiosConfig'
 
@@ -23,6 +24,7 @@ import './api/axiosConfig'
                 <Route path='/orders' element={<OrderPage />}></Route>
                 <Route path='/wishlist' element={<WishlistPage />}></Route>
                 <Route path='/product/:product_id' element={<ProductPage />}></Route>
+                <Route path='/category/:category_name' element={<CategoryPage />}></Route>
                 <Route path='/profile' element={<UserProfile />}></Route>
                 <Route path='/otp' element={<OTPPage />}></Route>
                 <Route path='*' element={<FallbackPage />}></Route>
