@@ -2,17 +2,73 @@ import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import ProductReviewSection from '../components/layout/ProductReviewSection'
 import StickyPageHeader from "../components/layout/PageHeader"
-
-// fake data
-const productInfo = {
-  name: 'SONY PlayStation5 Console (slim) CFI-2008A01X 1024 GB (White)'
-}
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import Loader from '../components/common/Loader'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { addToCart } from '../features/cart/cartSlice'
 
 function ProductPage() {
+
+  const params = useParams()
+  const targetProductId = params.product_id
+  const [productDetails, setProductDetails] = useState(null)
+  const [loading, setLoadingState] = useState(true)
+  console.log("URL PARAMETERS:", params.product_id) // for test
+
+  const products = useSelector(state => state.products.items)
+  const dispatch = useDispatch()
+
+
+  const handleAddToCartButtonClick = (id) =>{
+    console.log("Target ID:", id) // for test
+    const selectedProduct = products.filter((product)=>{
+      if(product._id === id)
+        return product
+    })
+    if(selectedProduct)
+      dispatch(addToCart(selectedProduct[0]))
+  }
+
+  const handleBuyNowButtonClick = (id) =>{
+    console.log("Target ID:", id) // for test
+    const selectedProduct = products.filter((product)=>{
+      if(product._id === id)
+        return product
+    })
+    if(selectedProduct)
+      console.log("Product selected to buy: ", selectedProduct[0])
+  }
+
+  // API Call
+  useEffect(()=>{
+    const getProduct = async()=>{
+      try {
+        const response = await axios.get(`http://localhost:3000/product/${targetProductId}`)
+        if(response.data.success === true) {
+          const productDetails = response.data.data
+          console.log(productDetails) // for test
+          setProductDetails(productDetails)
+          setLoadingState(false)
+        }
+      }catch(error) {
+        console.log("Cannot get product, reason: ", error)
+      }
+    }
+    getProduct()
+  }, [targetProductId])
+
+  if(loading) {
+    return <Loader />
+  }
+
     return(
         <>
         <Header />
-        <StickyPageHeader pageName={productInfo.name}/>
+      
+        <StickyPageHeader pageName={productDetails.title}/>
+
         {/* Main Wrapper */} 
         <div className="max-w-6xl mx-auto px-4 py-3">
 
@@ -25,15 +81,23 @@ function ProductPage() {
                     {/* image only wrapper */}
                     <div className="flex p-4">
                         <img 
-                            src="https://images.pexels.com/photos/32967534/pexels-photo-32967534.jpeg" 
-                            alt="Product Image"
+                            src={productDetails.images[0]} 
+                            alt={`${productDetails.title}-image`}
                             className="object-contain" 
                         />
                     </div>
                     {/* image CTA buttons */}
                     <div className="grid gap-2 my-4">
-                        <div className="col-span-12 p-6 btn border bg-primary text-lg">Add to Cart </div>
-                        <div className="col-span-12 p-6 btn border bg-primary text-lg">Buy Now </div>
+                        <div className="col-span-12 p-6 btn border bg-primary text-lg"
+                          onClick={()=>{handleBuyNowButtonClick(productDetails._id)} }
+                        >
+                          Buy Now
+                        </div>
+                        <div className="col-span-12 p-6 btn border bg-primary text-lg"
+                          onClick={()=>{handleAddToCartButtonClick(productDetails._id)} }
+                        >
+                          Add to Cart 
+                        </div>
                     </div>
                     
                 </div>
@@ -49,8 +113,8 @@ function ProductPage() {
                             <ul>
                                 <li><a >Home</a></li>
                                 <li><a >Products</a></li>
-                                <li><a >Gaming</a></li>
-                                <li><a >Playstation 5</a></li>
+                                <li><a >{productDetails.category.name}</a></li>
+                                <li><a >{productDetails.title}</a></li>
                             </ul>
                         </div>
                         {/* Compare checkbox */}
@@ -72,16 +136,25 @@ function ProductPage() {
                     </div>
                     {/* Product name , rating and others*/}
                     <div className="flex flex-col  gap-2 text-lg"> 
-                        <span>SONY PlayStation5 Console (slim) CFI-2008A01X 1024 GB  (White)</span>
+                        <span>{productDetails===null? "product-title": productDetails.title}</span>
                         <div className="flex gap-4">
-                            <span className="badge badge-sm badge-success align-middle">⭐4.7 star </span>
-                            <span className="text-sm">5,410 Ratings and 389 Reviews </span>
+                            <span className="badge badge-sm badge-success align-middle">⭐{productDetails.ratings}</span>
+                            <span className="text-sm"> {productDetails.reviewCount} Reviews </span>
                         </div>
-                        <span className='text-lg'>Rs.54,990</span>
+                        
+                        <div className="inline ">
+                        <span className='text-2xl font-semibold'>Rs. {productDetails.price - productDetails.discount}</span>
+                        <span className='text-1xl line-through ms-4'>Rs.{productDetails.price}</span>
+                        <span className='text-1xl ms-4 font-bold text-success'>{Math.round((productDetails.discount / productDetails.price)*100)}% off</span>
+                        </div>
                     </div>
                     {/* Warranty info */}
                     <div className="flex">
-                        <span>1 Year Warranty <a href="https://www.playstation.com/en-in/ps5/" className='link text-info'>Know more</a></span>
+                        {
+                          productDetails.warranty ? 
+                          <span>1 Year Warranty <a href="" className='link text-info'>Know more</a></span>
+                          : 
+                        <div className='hidden'/>}
                     </div>
                     {/* Product specifications */}
                     <div className="grid grid-cols-12">
@@ -90,7 +163,7 @@ function ProductPage() {
                             <h1>Specifications</h1>
                         </div>
                         {/* specification details table*/}
-                        <div className="flex col-span-12  border border-base-300 ">
+                        <div className="flex col-span-12  border border-base-300 w-full">
                             <div className="overflow-x-auto">
                                 <table className="table table-zebra">
                                     <thead>
@@ -102,88 +175,33 @@ function ProductPage() {
                                   <tbody>
                                     <tr>
                                       <td>Brand </td>
-                                      <td>SONY</td>
+                                      <td>{productDetails.brand}</td>
                                     </tr>
                                     <tr>
                                       <td>Model Number</td>
-                                      <td>PlayStation5 Console (slim) CFI-2008A01X</td>
+                                      <td>{productDetails._id}</td>
                                     </tr>
                                     <tr>
-                                      <td>Sales Package</td>
-                                      <td>Playstation 5 console, Disc Drive (attached to console), Dual sense wireless controller, 2 horizontal stand feet, HDMI cable, AC power cord, USB cable</td>
+                                      <td>Description</td>
+                                      <td>{productDetails.description}</td>
                                     </tr>
                                     <tr>
-                                      <td>Additional Content</td>
-                                      <td>Slim Disk</td>
+                                      <td>Discount</td>
+                                      <td>{productDetails.discount}</td>
                                     </tr>
                                     <tr>
-                                      <td>Console Type</td>
-                                      <td>Console</td>
+                                      <td>Stock Available</td>
+                                      <td>{productDetails.stock}</td>
                                     </tr>
                                     <tr>
-                                      <td>Motion Controller Included</td>
-                                      <td>No</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Disk Drive</td>
-                                      <td>Yes</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Games Included</td>
-                                      <td>No</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Console For Refiner</td>
-                                      <td>PS5</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Storage</td>
-                                      <td>1024</td>
+                                      <td>Product Posted At</td>
+                                      <td>{productDetails.updatedAt}</td>
                                     </tr>
                                   </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    {/* Warranty specifications */}
-                    <div className="grid grid-cols-12">
-                        {/* warranty header */}
-                        <div className="flex col-span-12 border-2 border-base-300 p-4">
-                            <h1>Warranty Info</h1>
-                        </div>
-                        {/* specification details table*/}
-                        <div className="flex col-span-12  border border-base-300 ">
-                            <div className="overflow-x-auto">
-                                <table className="table table-zebra">
-                                    <thead>
-                                        <tr>
-                                            <th>Specification</th>
-                                            <th>Detail</th>
-                                        </tr>
-                                    </thead>
-                                  <tbody>
-                                    <tr>
-                                      <td>Warranty Summary </td>
-                                      <td>1 Year Warranty</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Warranty Service Type</td>
-                                      <td>For any warranty related issues, please call the Customer Support -[1800-103-7799][https://web.sony-asia.com/in/contact-us/]</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Covered in Warranty</td>
-                                      <td>Manufacturing Defects</td>
-                                    </tr>
-                                    <tr>
-                                      <td>Not Covered in Warranty</td>
-                                      <td>Physical, Fire and Water Damages</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
- 
                 </div>
 
                 {/* Product review wrapper */}
