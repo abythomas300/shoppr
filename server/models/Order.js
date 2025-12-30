@@ -1,23 +1,26 @@
 const mongoose = require("mongoose")
+const User = require('./User')
+const Product = require('./Product')
+const Payment = require('./Payment')
 
 const orderSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: User,
         required: true
     },
     orderItems: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
+        ref: Product
     }],
     shippingAddress: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: User,
         required: true
     },
     paymentId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Payment'
+        ref: Payment
     },
     status: {
         type: String,

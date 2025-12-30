@@ -1,14 +1,15 @@
 const mongoose = require("mongoose")
+const User = require('../models/User')
 
 const paymentSchema = new mongoose.Schema({
-    orderId: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Order',
+        ref: User,
         required: true
     },
     method: {
         type: String, 
-        enum: ['Razorpay, Stripe', 'PayPal'],
+        enum: ['Razorpay', 'Stripe', 'PayPal'],
         required: true
     },
     transactionId: {
