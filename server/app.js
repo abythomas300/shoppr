@@ -7,6 +7,7 @@ const authRouter = require('./routes/authRoutes')
 const productRouter = require('./routes/productRoutes')
 const cors = require("cors")
 const cookieParser = require('cookie-parser')
+const orderController = require('./controllers/orderController')
 
 // package configurations
 const app = express()
@@ -34,6 +35,7 @@ app.use('/product', productRouter)
 
 // route handlers
 app.get('/', homeController.displayHomepage)
+app.post('/orders', orderController.getOrders)
 
 
 // start server
