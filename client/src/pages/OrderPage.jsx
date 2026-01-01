@@ -59,13 +59,6 @@ function OrdersPage() {
                                       </div>
                                 </div>
                             </div>
-                            {/* <div className="col-span-2">
-                                <div className="flex justify-center h-full">
-                                    <div className="flex justify-center align-bottom">
-                                            <span className="btn btn-ghost"><TrashCan/></span>
-                                    </div>
-                                </div>
-                            </div> */}
                         </div> 
                     </div>
                 </div>)
