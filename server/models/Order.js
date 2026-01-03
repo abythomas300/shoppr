@@ -14,9 +14,13 @@ const orderSchema = new mongoose.Schema({
         ref: Product
     }],
     shippingAddress: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: User,
-        required: true
+        addressLabel: {type: String, required: true},
+        housename: {type: String, required: true},
+        street: {type: String, required: true},
+        city: {type: String, required: true},
+        state: {type: String, required: true},
+        pincode: {type: String, required: true},
+        country: {type: String, required: true}
     },
     paymentId: {
         type: mongoose.Schema.Types.ObjectId,
