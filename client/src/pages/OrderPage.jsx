@@ -2,9 +2,13 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import PageHeader from "../components/layout/PageHeader";
 import StarRating from "../components/common/StarRating";
-import {useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {setOrderDetails} from "../features/orders/ordersSlice"
+import OrderedProductCards from "../components/layout/OrderedProductCards";
+import formatDate from "../utils/dateConverter";
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -17,14 +21,35 @@ const TrashCan = ({ className = "w-5 h-5" }) => (
 function OrdersPage() {
     
     const orderedItems = useSelector(state => state.orders.items)
+    const dispatch = useDispatch()
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
     const navigate = useNavigate()
 
     // redirect non-logged in user to login page
         useEffect(()=>{
-            if(!isLoggedIn)
+            // Check whether user is logged in
+            if(!isLoggedIn) {
                 navigate('/login')
-        })
+            }
+
+            // API call
+            const getOrders = async () => {
+                try {
+                    const response = await axios.post('http://localhost:3000/orders', {userId: "692a05b42c355ec8b213489b"})
+                    if(response.data.success === true) {
+                        const orderDetails = response.data.orders
+                        console.log("ORDER DETAILS: ", orderDetails) // for test
+                        dispatch(setOrderDetails(orderDetails))
+
+                        // TODO: loading state set to false
+                    }
+                }catch(error) {
+                    console.log("Cannot get order details, reason: ", error)
+                }
+            }
+
+            getOrders()
+        }, [])
 
     return(
         <>
@@ -35,34 +60,22 @@ function OrdersPage() {
 
             <div className="max-w-6xl mx-auto px-4 py-3"> {/*Main Wrapper*/}
 
-            {orderedItems.map((item)=>{
+            { 
+            (orderedItems && orderedItems.length > 0) ?
+            orderedItems.map((item)=>{
                     return(
-
-                    <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item.id}>
-                
-                    <div className="min-h-40 flex gap-4 w-full ">
-                        <div className="flex max-w-40 max-h-40 min-w-40 min-h-40 " >
-                            <img 
-                                src={item.images[0]} 
-                                alt="Product Image" 
-                                className="object-cover rounded-md"
-                            />
-                        </div>
-                        <div className="grid grid-cols-10  gap-4 w-full ms-4">
-                            <div className="flex col-span-12 ">
-                                <div className="flex flex-col">
-                                    <span className="font-semibold text-lg sm:text-base line-clamp-4">{item.title}</span>
-                                    <span className="text-lg font-bold">Rs. {item.price}</span>
-                                    <span className="text-sm italic ">Ordered on DD/MM/YY</span>
-                                      <div className=" flex gap-2 col flex-wrap ">
-                                      <StarRating />
-                                      </div>
-                                </div>
+                        <>
+                            <div className="flex m-4 p-4 card bg-base-100 shadow-sm " key={item._id}>
+                            <p>Orders on {formatDate(item.placedAt)}</p> 
                             </div>
-                        </div> 
-                    </div>
-                </div>)
-            })}
+                            <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item._id}>
+                                <OrderedProductCards orderedItems={item.orderItems} />
+                            </div>
+
+                        </>)
+            }
+            )
+            : <p className="text-center text-base-content/70 col-span-full">Seems like you haven't bought any products from us yet. 😭</p>}
             </div>
 
             <Footer />
