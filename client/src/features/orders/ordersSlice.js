@@ -1,14 +1,18 @@
 import {createSlice} from "@reduxjs/toolkit"
-import orders from './orders-test-db'
+// import orders from './orders-test-db'
 
 const ordersSlice = createSlice({
     name: 'ordersSlice',
     initialState: {
-        items: orders
+        items: null
     }, 
     reducers: {
+        setOrderDetails(state, action){
+            state.items = action.payload
+            console.log("Order details set to -->", state.items) // for test
+        },
         addToOrders(state, action) {
-            state.orderedItems.push(action.payload)
+            state.items.push(action.payload)
             console.log("product added to cart!", action.payload) // for test
         },
         rateProductsInOrders(state, action) {
@@ -17,5 +21,5 @@ const ordersSlice = createSlice({
     }
 })
 
-export const {addToCart, rateProductsInOrders} = ordersSlice.actions 
+export const {addToCart, rateProductsInOrders, setOrderDetails} = ordersSlice.actions 
 export default ordersSlice.reducer
