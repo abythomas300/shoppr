@@ -4,6 +4,10 @@ const Product = require('./Product')
 const Payment = require('./Payment')
 
 const orderSchema = new mongoose.Schema({
+    orderId: {
+        type: String,
+        required: true
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: User,
@@ -22,14 +26,14 @@ const orderSchema = new mongoose.Schema({
         pincode: {type: String, required: true},
         country: {type: String, required: true}
     },
-    paymentId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Payment
-    },
     status: {
         type: String,
         enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
         default: 'Pending'
+    },
+    paymentDetails: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: Payment
     },
     totalAmount: {
         type: Number,
