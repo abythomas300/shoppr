@@ -8,6 +8,10 @@ const orderSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    receipt: {
+        type: String,
+        required: true
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: User,
@@ -28,8 +32,8 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'],
-        default: 'Pending'
+        enum: ['created', 'paid', 'Shipped', 'delivered', 'cancelled'],
+        default: 'created'
     },
     paymentDetails: {
         type: mongoose.Schema.Types.ObjectId,
