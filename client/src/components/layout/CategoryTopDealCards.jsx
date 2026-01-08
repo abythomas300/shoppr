@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import CategoryBanner from "./CategoryBanner";
 import Loader from "../common/Loader";
+import { setCheckoutDetails } from '../../features/checkout/checkoutSlice'
+import { useNavigate } from "react-router-dom";
 
 function CategoryTopDealsCards() {
 
@@ -19,6 +21,8 @@ function CategoryTopDealsCards() {
         const products = useSelector(state => state.products.items)
         const dispatch = useDispatch()
 
+        const navigate = useNavigate()
+
         const handleAddToCartButtonClick = (id)=>{
           // get selected product from global state
           const selectedProduct = products.filter((product)=>{
@@ -27,11 +31,18 @@ function CategoryTopDealsCards() {
           })
           // dispatch addToCart() from cartSlice
           if(selectedProduct)
-            dispatch(addToCart(selectedProduct[0]))
+            dispatch(addToCart(selectedProduct))
         }
 
-        const handleBuyNowButtonClick = (event)=>{
-          event.preventDefault()
+        const handleBuyNowButtonClick = (id) =>{
+          console.log("Target ID:", id) // for test
+          const selectedProduct = products.filter((product)=>{
+            if(product._id === id)
+              return product
+          })
+          if(selectedProduct)
+            dispatch(setCheckoutDetails(selectedProduct))
+            navigate('/orders/payment-gateway-selection')
         }
 
         const handleAddToWishlistButton = (id)=>{
@@ -106,7 +117,7 @@ function CategoryTopDealsCards() {
                         <button onClick={ ()=>{handleAddToCartButtonClick(product._id)} } className="btn btn-primary btn-sm text-sm ">
                           Add to Cart
                         </button>
-                        <button onClick={handleBuyNowButtonClick} className="btn btn-primary btn-sm text-sm">
+                        <button onClick={()=> handleBuyNowButtonClick(product._id)} className="btn btn-primary btn-sm text-sm">
                           Buy now
                         </button>
                         <button onClick={()=> handleAddToWishlistButton(product._id)} className="btn btn-primary btn-sm text-sm">

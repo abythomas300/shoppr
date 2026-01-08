@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from "react-redux";
 import {removeFromWishlist} from "../features/wishlist/wishlistSlice"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { addToCart } from "../features/cart/cartSlice";
+import { setCheckoutDetails } from "../features/checkout/checkoutSlice";
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -34,6 +36,29 @@ function WishlistPage() {
         if(selectedItem[0])
             dispatch(removeFromWishlist(selectedItem[0]))
     }
+    
+    // get selected product from global state
+    const handleAddToCartButtonClick = (id)=>{
+        console.log("Target id:", id) // for test
+        const selectedProduct = items.filter((product)=>{
+          if(product._id === id) 
+            return product
+        })
+        // dispatch addToCart() from cartSlice
+        if(selectedProduct)
+          dispatch(addToCart(selectedProduct[0]))
+    }
+
+  const handleBuyNowButtonClick = (id) =>{
+    console.log("Target ID:", id) // for test
+    const selectedProduct = items.filter((product)=>{
+      if(product._id === id)
+        return product
+    })
+    if(selectedProduct)
+      dispatch(setCheckoutDetails(selectedProduct))
+  }
+    
 
     return(
         <>
@@ -44,12 +69,14 @@ function WishlistPage() {
 
             <div className="max-w-6xl mx-auto px-4 py-3"> {/*Main Wrapper*/}
 
-            {items.map((item)=>{
+            {
+            (items && items.length > 0) ?
+            items.map((item)=>{
                     return(
 
                     <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={items.id}>
                 
-                    <div className="min-h-40 flex gap-4 w-full ">
+                    <div className="min-h-40 flex gap-4 w-full">
                         <div className="flex max-w-40 max-h-40 min-w-40 min-h-40 " >
                             <img 
                                 src={item.images[0]} 
@@ -62,6 +89,10 @@ function WishlistPage() {
                                 <div className="flex flex-col">
                                     <span className="font-semibold text-lg sm:text-base line-clamp-4">{item.title}</span>
                                     <span className="text-lg font-bold">{item.price}</span>
+                                    <div className=" flex gap-2 col flex-wrap ">
+                                      <button onClick={()=> handleBuyNowButtonClick(item._id)} className="btn btn-ghost bg-primary w-50">Buy Now</button>
+                                      <button onClick={()=> handleAddToCartButtonClick(item._id)} className="btn btn-ghost bg-primary w-50">Add to Cart</button>
+                                    </div>
                                 </div>
                             </div>
                             <div className="col-span-2">
@@ -74,7 +105,9 @@ function WishlistPage() {
                         </div> 
                     </div>
                 </div>)
-            })}
+            })
+            : <p className="text-center text-base-content/70 col-span-full"> No products in wishlist yet, try adding some products you like. </p>
+        }
             </div>
 
             <Footer />

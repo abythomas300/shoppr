@@ -7,6 +7,7 @@ import {removeFromCart} from "../features/cart/cartSlice"
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {addToWishlist} from '../features/wishlist/wishlistSlice'
+import {setCheckoutDetails} from '../features/checkout/checkoutSlice'
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -48,6 +49,17 @@ function CartPage() {
             dispatch(addToWishlist(selectedProduct[0]))
     }
 
+  const handleBuyNowButtonClick = (id) =>{
+    console.log("Target ID:", id) // for test
+    const selectedProduct = items.filter((product)=>{
+      if(product._id === id)
+        return product
+    })
+    if(selectedProduct){
+      dispatch(setCheckoutDetails(selectedProduct))
+    }
+  }
+
     return(
         <>
             <Header /> 
@@ -77,7 +89,7 @@ function CartPage() {
                                     <span className="font-semibold text-lg sm:text-base line-clamp-4">{item.title}</span>
                                     <span className="text-lg font-bold">{item.price}</span>
                                       <div className=" flex gap-2 col flex-wrap ">
-                                      <button className="btn btn-ghost bg-primary w-50">Buy Now</button>
+                                      <button onClick={()=> handleBuyNowButtonClick(item._id)} className="btn btn-ghost bg-primary w-50">Buy Now</button>
                                       <button onClick={()=> handleAddToWishlistButton(item._id)} className="btn btn-ghost bg-primary w-50">Add to Wishlist</button>
                                       </div>
                                 </div>
@@ -85,7 +97,7 @@ function CartPage() {
                             <div className="col-span-2">
                                 <div className="flex justify-center h-full">
                                     <div className="flex justify-center align-bottom">
-                                            <button onClick={()=>handleRemoveFromCartButtonClick(item._id)}><span className="btn btn-ghost"><TrashCan/></span></button>
+                                            <button onClick={()=> handleRemoveFromCartButtonClick(item._id)}><span className="btn btn-ghost"><TrashCan/></span></button>
                                     </div>
                                 </div>
                             </div>

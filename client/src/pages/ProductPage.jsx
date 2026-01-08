@@ -8,6 +8,8 @@ import Loader from '../components/common/Loader'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart } from '../features/cart/cartSlice'
+import { setCheckoutDetails } from '../features/checkout/checkoutSlice'
+import { useNavigate } from 'react-router-dom';
 
 function ProductPage() {
 
@@ -15,11 +17,11 @@ function ProductPage() {
   const targetProductId = params.product_id
   const [productDetails, setProductDetails] = useState(null)
   const [loading, setLoadingState] = useState(true)
-  console.log("URL PARAMETERS:", params.product_id) // for test
 
   const products = useSelector(state => state.products.items)
   const dispatch = useDispatch()
-
+  
+  const navigate = useNavigate()
 
   const handleAddToCartButtonClick = (id) =>{
     console.log("Target ID:", id) // for test
@@ -37,8 +39,10 @@ function ProductPage() {
       if(product._id === id)
         return product
     })
-    if(selectedProduct)
-      console.log("Product selected to buy: ", selectedProduct[0])
+    if(selectedProduct){
+      dispatch(setCheckoutDetails(selectedProduct))
+      navigate('/orders/payment-gateway-selection')
+    }
   }
 
   // API Call
@@ -57,7 +61,7 @@ function ProductPage() {
       }
     }
     getProduct()
-  }, [targetProductId])
+  }, [])
 
   if(loading) {
     return <Loader />
