@@ -2,12 +2,13 @@ const express = require('express')
 const dotenv = require('dotenv')
 const dbConfiguration = require('./config/db')
 const expressSession = require('express-session')
-const homeController = require('./controllers/homeController')
-const authRouter = require('./routes/authRoutes')
-const productRouter = require('./routes/productRoutes')
 const cors = require("cors")
 const cookieParser = require('cookie-parser')
-const orderController = require('./controllers/orderController')
+const authRouter = require('./routes/authRoutes')
+const productRouter = require('./routes/productRoutes')
+const orderRouter = require('./routes/orderRoutes')
+const paymentRouter = require('./routes/paymentRoutes')
+const homeController = require('./controllers/homeController')
 
 // package configurations
 const app = express()
@@ -28,15 +29,14 @@ app.use(expressSession({
     saveUninitialized: false
 }))
 
-
 // route specific middlewares
 app.use('/auth', authRouter)
 app.use('/product', productRouter)
+app.use('/orders', orderRouter)
+app.use('/payments', paymentRouter)
 
 // route handlers
 app.get('/', homeController.displayHomepage)
-app.post('/orders', orderController.getOrders)
-
 
 // start server
 app.listen(process.env.PORT, async ()=>{
