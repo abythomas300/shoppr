@@ -100,7 +100,7 @@ function TopDealsCards() {
                         </p>
                       )}
                       <p className="text-primary font-bold text-lg">
-                        <span className="mr-1">₹</span>{product.price}
+                        <span className="mr-1">₹</span>{product.price - product.discount}
                       </p>
                       <div className="card-actions mt-2">
                         <button onClick={ ()=>{handleAddToCartButtonClick(product._id)} } className="btn btn-primary btn-sm text-sm ">
