@@ -1,4 +1,5 @@
 const orderModel = require("../models/Order")
+const RazorPay = require('razorpay')
 
 async function getOrders (req, res) {
     try{
@@ -17,4 +18,70 @@ async function getOrders (req, res) {
     }
 }
 
-module.exports = {getOrders}
+async function createOrder (req, res) {
+    try{
+        console.log("REQ.BODY: ", req.body) // for test
+        // Detect the payment gateway
+        switch(req.query.gateway) {
+            case "razorpay": {
+
+                // Create a RazorPay instance 
+                const rzrpay = new RazorPay({
+                    key_id: process.env.RZR_PAY_KEY,
+                    key_secret: process.env.RZR_PAY_SECRET_KEY
+                })
+
+                // Random receipt number generation
+                const min = 1000000; 
+                const max = 9999999; 
+                const receiptNumber = `#${Math.floor(Math.random() * (max - min + 1)) + min}`
+
+                const {amount, currency, notes} = req.body
+
+                const options = {
+                    amount: amount * 100,
+                    currency,
+                    receipt: receiptNumber,
+                    notes
+                }
+
+                // create orderId
+                const order = await rzrpay.orders.create(options)
+
+                const orderDetails = {
+                    orderId: order.id,
+                    receipt: receiptNumber,
+                    userId: req.body.userId,
+                    orderItems: [req.body.productId],
+                    shippingAddress: req.body.address,
+                    status: order.status,
+                    totalAmount: req.body.amount
+                }
+
+                // Save to DB
+                await orderModel.create(orderDetails)
+
+                return res.status(201).json({success: true, order})
+            }
+            case "stripe": {
+                console.log("stripe")
+                return res.status(201).json({success: true})
+            }
+            case "paypal": {
+                console.log("paypal")
+                return res.status(201).json({success: true})
+            }
+            default:
+                console.log("Invalid Gateway detected: ", req.query.gateway? req.query.gateway: "(empty)")
+                return res.status(400).json({message: "Invalid Gateway"})
+        }
+    }catch(error){
+        console.log("Cannot create order, server error: ", error)
+        res.status(500).json({message: "Cannot create order, Server Error"})
+    }
+}
+
+module.exports = {
+    getOrders, 
+    createOrder
+}
