@@ -11,6 +11,7 @@ import OTPPage from './pages/OTPPage'
 import CategoryPage from './pages/CategoryPage'
 import {Routes, Route} from 'react-router-dom'
 import './api/axiosConfig'
+import PaymentGatewaySelectionPage from './pages/PaymentGatewaySelectionPage'
 
   function App() {
 
@@ -27,6 +28,7 @@ import './api/axiosConfig'
                 <Route path='/category/:category_name' element={<CategoryPage />}></Route>
                 <Route path='/profile' element={<UserProfile />}></Route>
                 <Route path='/otp' element={<OTPPage />}></Route>
+                <Route path='/orders/payment-gateway-selection' element={<PaymentGatewaySelectionPage />}></Route>
                 <Route path='*' element={<FallbackPage />}></Route>
             </Routes>
         </>
