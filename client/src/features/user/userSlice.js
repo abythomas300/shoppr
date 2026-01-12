@@ -7,9 +7,8 @@ const userSlice = createSlice({
         details: user_db
     },
     reducers: {
-        updateUserInfo(state, action) {
+        updateUserInfo() {
             console.log("Userinfo updated")
-            console.log(`state: ${state.wishlistItems}, payload: ${action.payload}`)
         }
     }
 })

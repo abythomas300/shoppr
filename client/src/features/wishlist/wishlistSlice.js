@@ -1,10 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit"
-import wishlist_db from "./wishlist-test-db"
+// import wishlist_db from "./wishlist-test-db"
 
 const wishlistSlice = createSlice({
     name: "wishlistSlice",
     initialState: {
-        items: wishlist_db
+        items: []
     },
     reducers: {
         addToWishlist(state, action) {
