@@ -8,13 +8,11 @@ const checkoutSlice = createSlice({
     },
     reducers: {
         setCheckoutDetails(state, action){
-            console.log("Payload: ", action.payload) // test
             state.items = [...state.items, ...action.payload]
         },
         clearCheckout(state){
             state.items = []
             state.paymentMethod = null
-            console.log("checkout state cleared")
         }
     }
 })
