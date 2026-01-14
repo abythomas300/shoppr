@@ -12,8 +12,39 @@ import CategoryPage from './pages/CategoryPage'
 import {Routes, Route} from 'react-router-dom'
 import './api/axiosConfig'
 import PaymentGatewaySelectionPage from './pages/PaymentGatewaySelectionPage'
+import {useDispatch} from "react-redux";
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import Loader from './components/common/Loader'
+import {setUserProfile, setUserRole, setLoginSuccess} from './features/auth/authSlice'
 
   function App() {
+    
+    const [loading, setLoadingState] = useState(true)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        const verifyAccess = async ()=>{
+            try{
+                const response = await axios.get(`http://localhost:3000/auth/verify-access`, {withCredentials: true})
+                if(response.data.authenticated) {
+                    dispatch(setUserProfile(response.data.userDetails))
+                    dispatch(setUserRole(response.data.userDetails.role))
+                    dispatch(setLoginSuccess())
+                    setLoadingState(false)
+                }
+                setLoadingState(false)
+            }catch(error){
+                setLoadingState(false)
+                console.log("Error loading info, try again later.", error)
+            }
+        }
+        verifyAccess()
+    , []})
+
+    if(loading) {
+        return <Loader />
+    }
 
     return(
         <>

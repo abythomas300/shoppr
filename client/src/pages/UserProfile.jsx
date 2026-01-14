@@ -6,8 +6,10 @@ import PageHeader from "../components/layout/PageHeader"
 import {useSelector} from "react-redux";
 
 function AddressComponent() {
+
     const detail = useSelector(state => state.auth.userDetails)
     const address = detail.address
+
     if(address && address.length > 0) {
         // If there is 1 or more address available
         return(

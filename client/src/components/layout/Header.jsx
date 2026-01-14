@@ -1,10 +1,7 @@
 import {Link} from 'react-router-dom'
-import { useSelector } from 'react-redux'
 import HeaderProfileSection from './HeaderProfileSection'
 
 function Header() {
-
-    const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
 
     return (
 
@@ -57,7 +54,7 @@ function Header() {
                         </div>
                     </Link>
                     
-                    <HeaderProfileSection isLoggedIn={isLoggedIn}></HeaderProfileSection>
+                    <HeaderProfileSection></HeaderProfileSection>
                 </div>
             </div>
 

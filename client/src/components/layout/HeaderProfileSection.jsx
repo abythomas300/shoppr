@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-function HeaderProfileSection(props) {
+function HeaderProfileSection() {
 
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
     const userDetails = useSelector(state => state.auth.userDetails)
 
-    if(props.isLoggedIn){
+    if(isLoggedIn){
         return (
             <>
                     <Link to="/profile">

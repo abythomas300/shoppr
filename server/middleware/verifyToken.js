@@ -12,7 +12,7 @@ async function verifyToken(req, res, next) {
         // Check whether existing jwt token is valid
         const result = jwt.verify(req.cookies.jwt, process.env.JWT_SECRET_KEY)
         req.user = result
-        console.log("JWT Token Verfication Success") 
+        console.log("JWT Token Verfication Success")
         next()
     }catch(error){
         // Token is expired
