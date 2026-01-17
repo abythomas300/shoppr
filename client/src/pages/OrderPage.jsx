@@ -58,24 +58,29 @@ function OrdersPage() {
             {/* Page Header - "My Wishlist" */}
             <PageHeader pageName={'My Orders'}/>
 
-            <div className="max-w-6xl mx-auto px-4 py-3"> {/*Main Wrapper*/}
+            <div className="flex flex-col min-h-screen"> {/*Main Wrapper*/}
 
-            { 
-            (orderedItems && orderedItems.length > 0) ?
-            orderedItems.map((item)=>{
-                    return(
-                        <>
-                            <div className="flex m-4 p-4 card bg-base-100 shadow-sm " key={item._id}>
-                            <p>Orders on {formatDate(item.placedAt)}</p> 
-                            </div>
-                            <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item._id}>
-                                <OrderedProductCards orderedItems={item.orderItems} />
-                            </div>
+                <div className="grow">
 
-                        </>)
-            }
-            )
-            : <p className="text-center text-base-content/70 col-span-full">Seems like you haven't bought any products from us yet. 😭</p>}
+                    { 
+                    (orderedItems && orderedItems.length > 0) ?
+                    orderedItems.map((item)=>{
+                            return(
+                                <>
+                                    <div className="flex m-4 p-4 card bg-base-100 shadow-sm " key={item._id}>
+                                    <p>Orders on {formatDate(item.placedAt)}</p> 
+                                    </div>
+                                    <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item._id}>
+                                        <OrderedProductCards orderedItems={item.orderItems} />
+                                    </div>
+
+                                </>)
+                    }
+                    )
+                    : <p className="text-center text-base-content/70 col-span-full">Seems like you haven't bought any products from us yet.</p>}
+                
+                </div>
+
             </div>
 
             <Footer />

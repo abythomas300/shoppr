@@ -67,50 +67,52 @@ function CartPage() {
             {/* Page Header - "My Wishlist" */}
             <PageHeader pageName={'My Cart'}/>
 
-            <div className="max-w-6xl mx-auto px-4 py-3"> {/*Main Wrapper*/}
+            <div className="flex flex-col min-h-screen"> {/*Main Wrapper*/}
+                <div className="grow">
 
-          {
-          (items && items.length > 0) ?
-            items.map((item)=>{
-                    return(
-                    <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item._id}>
-                
-                    <div className="min-h-40 flex gap-4 w-full ">
-                        <div className="flex max-w-40 max-h-40 min-w-40 min-h-40 " >
-                            <img 
-                                src={item.images[0]} 
-                                alt="Product Image" 
-                                className="object-cover rounded-md"
-                            />
-                        </div>
-                        <div className="grid grid-cols-12 gap-4 w-full ms-4">
-                            <div className="flex col-span-10 ">
-                                <div className="flex flex-col">
-                                    <span className="font-semibold text-lg sm:text-base line-clamp-4">{item.title}</span>
-                                    <span className="text-lg font-bold">{item.price}</span>
-                                      <div className=" flex gap-2 col flex-wrap ">
-                                      <button onClick={()=> handleBuyNowButtonClick(item._id)} className="btn btn-ghost bg-primary w-50">Buy Now</button>
-                                      <button onClick={()=> handleAddToWishlistButton(item._id)} className="btn btn-ghost bg-primary w-50">Add to Wishlist</button>
-                                      </div>
-                                </div>
-                            </div>
-                            <div className="col-span-2">
-                                <div className="flex justify-center h-full">
-                                    <div className="flex justify-center align-bottom">
-                                            <button onClick={()=> handleRemoveFromCartButtonClick(item._id)}><span className="btn btn-ghost"><TrashCan/></span></button>
+                    {
+                    (items && items.length > 0) ?
+                        items.map((item)=>{
+                                return(
+                                <div className="flex m-4 p-4 card bg-base-100 shadow-sm border rounded-md" key={item._id}>
+                            
+                                <div className="min-h-40 flex gap-4 w-full ">
+                                    <div className="flex max-w-40 max-h-40 min-w-40 min-h-40 " >
+                                        <img 
+                                            src={item.images[0]} 
+                                            alt="Product Image" 
+                                            className="object-cover rounded-md"
+                                        />
                                     </div>
+                                    <div className="grid grid-cols-12 gap-4 w-full ms-4">
+                                        <div className="flex col-span-10 ">
+                                            <div className="flex flex-col">
+                                                <span className="font-semibold text-lg sm:text-base line-clamp-4">{item.title}</span>
+                                                <span className="text-lg font-bold">{item.price}</span>
+                                                <div className=" flex gap-2 col flex-wrap ">
+                                                <button onClick={()=> handleBuyNowButtonClick(item._id)} className="btn btn-ghost bg-primary w-50">Buy Now</button>
+                                                <button onClick={()=> handleAddToWishlistButton(item._id)} className="btn btn-ghost bg-primary w-50">Add to Wishlist</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-span-2">
+                                            <div className="flex justify-center h-full">
+                                                <div className="flex justify-center align-bottom">
+                                                        <button onClick={()=> handleRemoveFromCartButtonClick(item._id)}><span className="btn btn-ghost"><TrashCan/></span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
                                 </div>
-                            </div>
-                        </div> 
-                    </div>
-                </div>)
-            })
-            : <p className="text-center text-base-content/70 col-span-full"> No products in cart yet, try adding some. </p>
-            }
+                            </div>)
+                        })
+                        : <p className="text-center text-base-content/70 col-span-full"> No products in cart yet, try adding some. </p>
+                        }
+                </div>
+                        {
+                            (items.length === 0?  "": <CartTotalPriceBanner/>)
+                        }
             </div>
-            {
-                (items.length === 0?  "": <CartTotalPriceBanner/>)
-            }
             <Footer />
         </>
     )
