@@ -314,8 +314,8 @@ async function loginUser(req, res) {
 
 async function verifyAccess(req, res) {
   try {
-    const {username, firstName, lastName, email, phone, twoFactorEnabled, role, address, createdAt} = await userModel.findById(req.user.id)
-    res.status(200).json({authenticated: true, userDetails: {username, firstName, lastName, email, phone, twoFactorEnabled, role, address, createdAt} })
+    const {_id, username, firstName, lastName, email, phone, twoFactorEnabled, role, address, createdAt} = await userModel.findById(req.user.id)
+    res.status(200).json({authenticated: true, userDetails: {_id, username, firstName, lastName, email, phone, twoFactorEnabled, role, address, createdAt} })
   }catch(error){
     console.log("Access verification failed, reason: ", error)
     res.status(500).json({authenticated: false})

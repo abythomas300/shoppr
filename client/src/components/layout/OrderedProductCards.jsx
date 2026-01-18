@@ -2,12 +2,10 @@ import StarRating from "../common/StarRating"
 
 function OrderedProductCards(props) {
 
-    const orderedProducts = props.orderedItems // for test
-    console.log("INSIDE OrderedProductCards.jsx, currently received prop product: ", orderedProducts) // for test
+    const orderedProducts = props.orderedItems
 
     return (
         orderedProducts.map((product)=>{
-            console.log("Current Product: ", product) // for test
             return(
                 <>
                 <div className="min-h-40 flex gap-4 w-full ">
@@ -22,7 +20,6 @@ function OrderedProductCards(props) {
                         <div className="flex col-span-12 ">
                             <div className="flex flex-col">
                                 <span className="font-semibold text-lg sm:text-base line-clamp-4">{product.title}</span>
-                                {console.log(`Product Title is ${product.title}`)}
                                 <span className="text-lg font-bold">Rs. {product.price}</span>
                                   <div className=" flex gap-2 col flex-wrap mt-4">
                                     <StarRating />
