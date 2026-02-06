@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser')
 const authRouter = require('./routes/authRoutes')
 const productRouter = require('./routes/productRoutes')
 const orderRouter = require('./routes/orderRoutes')
+const cartRouter = require('./routes/cartRoutes')
 const paymentRouter = require('./routes/paymentRoutes')
 const homeController = require('./controllers/homeController')
 
@@ -33,6 +34,7 @@ app.use(expressSession({
 app.use('/auth', authRouter)
 app.use('/product', productRouter)
 app.use('/orders', orderRouter)
+app.use('/cart', cartRouter)
 app.use('/payments', paymentRouter)
 
 // route handlers
