@@ -14,7 +14,7 @@ function TopDealsCards() {
 
         const navigate = useNavigate()
         
-        const handleAddToCartButtonClick = (id)=>{
+        const handleAddToCartButtonClick = async (id)=>{
           // get selected product from global state
           console.log("Target id:", id) // for test
           const selectedProduct = products.filter((product)=>{
@@ -25,6 +25,11 @@ function TopDealsCards() {
           if(selectedProduct)
             console.log("SELECTED PRODUCT:", selectedProduct) // for test
             dispatch(addToCart(selectedProduct[0]))
+
+          // API call for adding product to cart
+          const response = await axios.post(`http://localhost:3000/cart/add-to-cart/${id}`, {withCredentials: true})
+          if(response.data.success)
+            console.log("Product added to cart successfully") // TODO: Replace it with flash message
         }
 
         const handleBuyNowButtonClick = (id) =>{

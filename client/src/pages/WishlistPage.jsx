@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../features/cart/cartSlice";
 import { setCheckoutDetails } from "../features/checkout/checkoutSlice";
+import axios from 'axios'
+
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -38,7 +40,7 @@ function WishlistPage() {
     }
     
     // get selected product from global state
-    const handleAddToCartButtonClick = (id)=>{
+    const handleAddToCartButtonClick = async (id)=>{
         console.log("Target id:", id) // for test
         const selectedProduct = items.filter((product)=>{
           if(product._id === id) 
@@ -47,10 +49,14 @@ function WishlistPage() {
         // dispatch addToCart() from cartSlice
         if(selectedProduct)
           dispatch(addToCart(selectedProduct[0]))
+
+        // API call for adding product to cart
+        const response = await axios.post(`http://localhost:3000/cart/add-to-cart/${id}`, {withCredentials: true})
+        if(response.data.success)
+            console.log("Product added to cart successfully") // TODO: Replace it with flash message        
     }
 
   const handleBuyNowButtonClick = (id) =>{
-    console.log("Target ID:", id) // for test
     const selectedProduct = items.filter((product)=>{
       if(product._id === id)
         return product
