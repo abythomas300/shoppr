@@ -54,6 +54,10 @@ const productSchema = new mongoose.Schema({
         size: [{type: String}],
         material: [{type: String}]
     },
+    totalSales: {
+        type: Number,
+        default: 0
+    },
     isFeatured: {
         type: Boolean,
         default: false
