@@ -4,7 +4,6 @@ const RazorPay = require('razorpay')
 async function getOrders (req, res) {
     try{
         const targetUserId = req.body.userId
-        console.log("REQUEST BODY -->", req.body)
         const targetOrders = await orderModel.find({userId: targetUserId}).populate('orderItems')
         // Check if user has no order history
         if(targetOrders.length === 0){
@@ -81,7 +80,40 @@ async function createOrder (req, res) {
     }
 }
 
+async function getOrderForLLM(userId) {
+    try{
+        const orderDetails = await orderModel.find({userId: userId}).select('shippingAddress.addressLabel orderItems status totalAmount placedAt').populate('orderItems')
+
+        // When no order history found
+        if(orderDetails.length === 0) {
+            return "No order found for this user"
+        }
+
+        // Selecting only necessary fields from order details
+        const orderDetailsClean = orderDetails.map((order)=>({
+            orderId: order._id,
+            shippingAddress: order.shippingAddress,
+            orderStatus: order.status,
+            orderAmout: order.totalAmount,
+            orderPlacedDate: order.placedAt,
+            // Selecting only necessary fields from 'orderItems' sub-array
+            orderItems: order.orderItems.map((item)=>({
+                name: item.title,
+                description: item.description,
+                price: item.price,
+                discount: item.discount,
+                averageRating: item.ratings
+            }))
+        }))
+        return orderDetailsClean
+    }catch(error){
+        console.log("Error getting order info, reason: ", error)
+        return "Cannot get order info, server error"
+    }
+}
+
 module.exports = {
-    getOrders, 
-    createOrder
+    getOrders,
+    createOrder,
+    getOrderForLLM
 }
