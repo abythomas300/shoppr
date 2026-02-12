@@ -2,6 +2,7 @@ const dotenv = require('dotenv')
 const genaiLib = require('@google/genai')
 const fnDeclarations = require('../models/llm_fn_declaration')
 const {getOrderForLLM} = require('./orderController')
+const { getProductsForLLM } = require('./productController')
 
 let userId = null
 
@@ -60,7 +61,7 @@ async function handleResponse(response) {
         const candidate = response.candidates[0] // since there is only one candidate by default
         const parts = candidate.content.parts
 
-        // Add the llm response's parts to global 'contents' arry
+        // Add the llm response's parts to global 'contents' array
         contents.push({role: 'model', parts: parts})
 
         // Identify whether response demands function call or not
@@ -107,17 +108,20 @@ async function executeFunctionCall(fnName) {
     try {
         switch(fnName) {
             case('get_order'): {
+                console.log("Execting get_order()...")
                 const queryResult = await getOrderForLLM(userId)
                 return queryResult
             }
             case('get_cart'): {
-                console.log("Executing get_order() method...") // test
+                console.log("Executing get_cart() method...") // test
             }
             case('get_shipping'): {
                 console.log("Executing get_order() method...") // test
             }
-            case('get_product'): {
-                console.log("Executing get_order() method...") // test
+            case('get_products'): {
+                console.log("Executing get_products()...")
+                const queryResult = await getProductsForLLM()
+                return queryResult
             }
             default: {
                 throw new Error("Compatible pre-defined function not found.")

@@ -13,8 +13,8 @@ const getCartFunctionDeclaration = {
 }
 
 const getProductFunctionDeclaration = {
-    name: 'get_product',
-    description: 'Get details of particular products in the application'
+    name: 'get_products',
+    description: 'Get all details of entire products currently available in the application to buy'
 }
 
 const getShippingFunctionDeclaration = {
