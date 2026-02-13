@@ -3,6 +3,7 @@ const genaiLib = require('@google/genai')
 const fnDeclarations = require('../models/llm_fn_declaration')
 const {getOrderForLLM} = require('./orderController')
 const { getProductsForLLM } = require('./productController')
+const { getCartForLLM } = require('./cartController')
 
 let userId = null
 
@@ -50,8 +51,8 @@ async function askGemini(userPrompt, user_id) {
         return final_response
 
     } catch(error) {
-        console.log("Error in chat init, reason: ", error.status)
-        return
+        console.log("Error in chat init, Error code: ", error.status)
+        return "Something went wrong, try again later."
     }
 }
 
@@ -108,12 +109,14 @@ async function executeFunctionCall(fnName) {
     try {
         switch(fnName) {
             case('get_order'): {
-                console.log("Execting get_order()...")
+                console.log("Execting get_order()...") // test
                 const queryResult = await getOrderForLLM(userId)
                 return queryResult
             }
             case('get_cart'): {
-                console.log("Executing get_cart() method...") // test
+                console.log("Executing get_cart()...") // test
+                const queryResult = await getCartForLLM(userId)
+                return queryResult
             }
             case('get_shipping'): {
                 console.log("Executing get_order() method...") // test

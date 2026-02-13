@@ -23,7 +23,6 @@ async function addToCart(req, res) {
 
         // If not empty
         if(usersCartDetails) {
-            const productPrice = productDetails.price
             // Update field
             await cartModel.updateOne({userId: req.user.id}, {
                 $push: {items: productDetails._id},
@@ -52,7 +51,34 @@ async function getCart(req, res) {
     }
 }
 
+async function getCartForLLM(user_id) {
+    try {
+
+        // When cart is empty
+        if(!await cartModel.exists({userId: user_id}))
+            return "This user has nothing saved in their cart"
+
+        const cartDetails = await cartModel.find({userId: user_id}).select('items totalAmount updatedAt').populate('items') 
+     
+        // create clean object
+        const cartDetailsClean = cartDetails.map((detail)=> ({
+            productsInCart: detail.items.map((product)=>({name: product.title})),
+            cartWorth: detail.totalAmount,
+            lastUpdated: detail.updatedAt
+        }))
+
+        console.log("Cart details --> ", cartDetailsClean) // test
+        
+        return cartDetailsClean
+
+    }catch(error) {
+        console.log("Error getting cart info, reason: ", error)
+        return "Cannot get cart info, server error"
+    }
+}
+
 module.exports = {
     addToCart,
-    getCart
+    getCart,
+    getCartForLLM
 }

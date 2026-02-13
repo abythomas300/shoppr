@@ -9,7 +9,7 @@ const getOrdersFunctionDeclaration = {
 
 const getCartFunctionDeclaration = {
     name: 'get_cart',
-    description: 'Get details of products user added in cart'
+    description: 'Get details of products user added in their cart'
 }
 
 const getProductFunctionDeclaration = {
