@@ -49,4 +49,32 @@ async function getProductsByCategory(req, res) {
     }
 }
 
-module.exports = {getProducts, getProductById, getProductsByCategory}
+async function getProductsForLLM() {
+    try {
+        const productDetails = await productModel.find().select('title description price discount category stock brand ratings totalSales createdAt').populate('category')
+        
+        // When no products exists
+        if(productDetails.length === 0) 
+            return "No products found in database"
+
+        // Selecting only necessary fields from product details
+        const productDetailsClean = productDetails.map((product) => ({
+            productName: product.title, 
+            description: product.description,
+            price: product.price,
+            discount: product.discount,
+            category: product.category.name,
+            brand: product.brand,
+            stockRemaining: product.stock,
+            rating: product.ratings,
+            totalSales: product.totalSales
+        }) )
+        
+        return productDetailsClean
+    } catch(error) {
+        console.log("Error getting order info, reason: ", error)
+        return "Cannot get products info, server error"
+    }
+}
+
+module.exports = {getProducts, getProductById, getProductsByCategory, getProductsForLLM}
