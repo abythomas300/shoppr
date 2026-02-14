@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Product = require('./Product')
 
 const wishlistSchema = new mongoose.Schema({
     userId: {
@@ -8,7 +9,7 @@ const wishlistSchema = new mongoose.Schema({
     },
     items: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
+        ref: Product
     }]
 },{
     timestamps: true
