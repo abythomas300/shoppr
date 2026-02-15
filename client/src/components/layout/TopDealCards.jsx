@@ -16,14 +16,12 @@ function TopDealsCards() {
         
         const handleAddToCartButtonClick = async (id)=>{
           // get selected product from global state
-          console.log("Target id:", id) // for test
           const selectedProduct = products.filter((product)=>{
             if(product._id === id) 
               return product
           })
           // dispatch addToCart() from cartSlice
           if(selectedProduct)
-            console.log("SELECTED PRODUCT:", selectedProduct) // for test
             dispatch(addToCart(selectedProduct[0]))
 
           // API call for adding product to cart
@@ -33,7 +31,6 @@ function TopDealsCards() {
         }
 
         const handleBuyNowButtonClick = (id) =>{
-          console.log("Target ID:", id) // for test
           const selectedProduct = products.filter((product)=>{
             if(product._id === id)
               return product
@@ -44,14 +41,22 @@ function TopDealsCards() {
           }
         }
 
-        const handleAddToWishlistButton = (id)=>{
-            console.log(id)
+        const handleAddToWishlistButton = async (id)=>{
+
+              // Adding product to global state
               const selectedProduct = products.filter((item)=>{
                 if(item._id === id)
                   return item
                 })
                 if(selectedProduct[0])
                   dispatch(addToWishlist(selectedProduct[0]))
+
+              // API call for adding products to wishlist 
+              const response = await axios.post('http://localhost:3000/wishlist/add-to-wishlist', {productId: id}, {withCredentials: true})
+              if(response.data.success) 
+                console.log("Product added to wishlist successfully") // TODO: Replace with flash message
+              
+
         }
         
         
@@ -61,10 +66,8 @@ function TopDealsCards() {
             const response = await axios.get('http://localhost:3000/product/')
             if(response.data.success) {
               products = response.data.products
-              console.log("API call success, response: ", products) // for test
               // setting products data fetched from API to productsSlice
               dispatch(setProduct(products))
-              console.log("new products dispatched to products global state!") // for test
             }
           } catch(error) {
             console.log("Error in getting products, reason: ", error)

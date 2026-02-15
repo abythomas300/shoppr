@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../features/cart/cartSlice";
 import { setCheckoutDetails } from "../features/checkout/checkoutSlice";
+import { setWishlistDetails } from "../features/wishlist/wishlistSlice"
+
 import axios from 'axios'
 
 
@@ -24,11 +26,26 @@ function WishlistPage() {
 
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
 
-    // redirect non-logged in user to login page
-        useEffect(()=>{
-            if(!isLoggedIn)
-                navigate('/login')
-        })    
+    useEffect(()=>{
+        // Redirect non-logged in user to login page
+        if(!isLoggedIn)
+            navigate('/login')
+        
+        // API call for wishlist data
+        const getCart = async ()=> {
+            try {
+                const response = await axios.get('http://localhost:3000/wishlist/', {withCredentials: true} )
+                if(response.data.success === true) {
+                    const wishlistDetails = response.data.wishlist[0].items
+                    dispatch(setWishlistDetails(wishlistDetails))
+                }
+            } catch(error) {
+                console.log("Cannot get wishlist details, reason: ", error)
+            }
+        } 
+        getCart()
+
+    }, [])    
 
     const handleRemoveFromWishlistButtonClick = (id)=>{
         const selectedItem = items.filter((item)=>{
@@ -41,7 +58,6 @@ function WishlistPage() {
     
     // get selected product from global state
     const handleAddToCartButtonClick = async (id)=>{
-        console.log("Target id:", id) // for test
         const selectedProduct = items.filter((product)=>{
           if(product._id === id) 
             return product

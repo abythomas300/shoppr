@@ -2,15 +2,46 @@ const wishlistModel = require('../models/Wishlist')
 
 async function getWishlist(req, res) {
     try {
-        const wishlistDetails = await wishlistModel.find().populate('items')
-        // When no wishlist data is inside DB
-        if(wishlistDetails.length === 0)
-            return res.status(200).json({success: true, data:null, message: 'Wishlist DB is empty'})
+        // When user has nothing in wishlist
+        if(!await wishlistModel.exists({userId: req.user.id})) 
+            return res.status(200).json({success: true, wishlist: [], message: 'user has nothing in wishlist'})
 
-        res.status(200).json({success: true, data: wishlistDetails})
+        const wishlistDetails = await wishlistModel.find({userId: req.user.id}).populate('items')
+
+        res.status(200).json({success: true, wishlist: wishlistDetails})
     } catch(error) {
         console.log("Error in getting wishlist details, reason: ", error)
         res.status(500).json({success: false, message: 'Server error'})
+    }
+}
+
+async function addToWishlist(req, res) {
+    try {
+        // Get wishlist details from db
+        const wishlistDetails = await wishlistModel.findOne({userId: req.user.id})
+
+        // When wishlist is empty
+        if(!wishlistDetails) {
+            const wishlistData = {
+                userId: req.user.id,
+                items: [req.body.productId]
+            }
+            await wishlistModel.create(wishlistData)
+        }
+
+        // When wishlist is not empty
+        if(wishlistDetails) {
+            // update field
+            await wishlistModel.updateOne({userId: req.user.id}, {
+                $push: {items: req.body.productId}
+            })
+        }
+
+        res.status(201).json({success: true})
+
+    } catch(error) {
+        console.log("Cannot add products to wishlist")
+        return res.status(500).json({success: false, message: "Cannot add product to wishlist, server error."})
     }
 }
 
@@ -28,7 +59,6 @@ async function getWishlistForLLM(user_id) {
             lastUpdated: detail.updatedAt
         }))
 
-         console.log("Results from getWishlistForLLM() ---> ", wishlistDetailsClean)
         return wishlistDetailsClean
 
     } catch(error) {
@@ -39,5 +69,6 @@ async function getWishlistForLLM(user_id) {
 
 module.exports = {
     getWishlist,
-    getWishlistForLLM
+    getWishlistForLLM,
+    addToWishlist
 }

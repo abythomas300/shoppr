@@ -57,7 +57,7 @@ function CartPage() {
             dispatch(removeFromCart(selectedProduct[0]))
     }
     
-    const handleAddToWishlistButton = (id)=>{
+    const handleAddToWishlistButton = async (id)=>{
         console.log(id)
         const selectedProduct = items.filter((item)=>{
             if(item._id === id)
@@ -65,6 +65,13 @@ function CartPage() {
         })
         if(selectedProduct[0])
             dispatch(addToWishlist(selectedProduct[0]))
+        
+        // API call for adding products to wishlist
+        const response = await axios.post('http://localhost:3000/wishlist/add-to-wishlist', {productId: id}, {withCredentials: true})
+        if(response.data.success) 
+          console.log("Product added to wishlist successfully") // TODO: Replace with flash message
+                        
+        
     }
 
   const handleBuyNowButtonClick = (id) =>{
