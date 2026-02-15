@@ -4,6 +4,7 @@ const fnDeclarations = require('../models/llm_fn_declaration')
 const {getOrderForLLM} = require('./orderController')
 const { getProductsForLLM } = require('./productController')
 const { getCartForLLM } = require('./cartController')
+const {getWishlistForLLM} = require('./wishlistController')
 
 let userId = null
 
@@ -14,7 +15,7 @@ const config = {
             fnDeclarations.getOrdersFunctionDeclaration,
             fnDeclarations.getCartFunctionDeclaration,
             fnDeclarations.getProductFunctionDeclaration,
-            fnDeclarations.getShippingFunctionDeclaration
+            fnDeclarations.getWishlistFunctionDeclaration
         ]
     }]
 }
@@ -124,6 +125,11 @@ async function executeFunctionCall(fnName) {
             case('get_products'): {
                 console.log("Executing get_products()...")
                 const queryResult = await getProductsForLLM()
+                return queryResult
+            }
+            case('get_wishlist') : {
+                console.log("Executing get_wishlist() method...") // test
+                const queryResult = await getWishlistForLLM(userId)
                 return queryResult
             }
             default: {

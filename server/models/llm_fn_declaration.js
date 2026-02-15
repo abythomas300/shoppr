@@ -17,8 +17,8 @@ const getProductFunctionDeclaration = {
     description: 'Get all details of entire products currently available in the application to buy'
 }
 
-const getShippingFunctionDeclaration = {
-    name: 'get_shipping',
+const getWishlistFunctionDeclaration = {
+    name: 'get_wishlist',
     description: 'Get shipping details of ordered product'
 }
 
@@ -26,5 +26,5 @@ module.exports = {
     getOrdersFunctionDeclaration,
     getCartFunctionDeclaration,
     getProductFunctionDeclaration,
-    getShippingFunctionDeclaration
+    getWishlistFunctionDeclaration
 }
