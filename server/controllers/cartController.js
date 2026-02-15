@@ -45,7 +45,7 @@ async function getCart(req, res) {
 
         const cartDetails = await cartModel.find({userId: req.user.id}).populate('items')
 
-        res.status(200).json({success: true, data: cartDetails})
+        res.status(200).json({success: true, cart: cartDetails[0].items})
     } catch(error) {
         res.status(500).json({success: false, message: 'Cannot get cart details, Server Error'})
     }

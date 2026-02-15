@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import {addToWishlist} from '../features/wishlist/wishlistSlice'
 import {setCheckoutDetails} from '../features/checkout/checkoutSlice'
+import axios from "axios"
+import { setCartDetails } from "../features/cart/cartSlice";
 
 const TrashCan = ({ className = "w-5 h-5" }) => (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
@@ -19,15 +21,31 @@ function CartPage() {
 
     const items = useSelector(state => state.cart.items)
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
+    const userDetails = useSelector(state => state.auth.userDetails)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     // redirect non-logged in user to login page
     useEffect(()=>{
+        // Redirect not logged in users
         if(!isLoggedIn)
             navigate('/login')
-    })
+
+        // API call
+        const getCart = async() => {
+            try {
+                const response = await axios.get('http://localhost:3000/cart/', {userId: userDetails._id})
+                if(response.data.success === true) {
+                    const cartDetails = response.data.cart
+                    dispatch(setCartDetails(cartDetails))
+                }
+            } catch(error) {
+                console.log("Cannot get order details, reason:", error)
+            }
+        }
+        getCart()
+    }, [])
 
     const handleRemoveFromCartButtonClick = (id)=>{
         const selectedProduct = items.filter((item)=>{
@@ -50,7 +68,6 @@ function CartPage() {
     }
 
   const handleBuyNowButtonClick = (id) =>{
-    console.log("Target ID:", id) // for test
     const selectedProduct = items.filter((product)=>{
       if(product._id === id)
         return product
@@ -110,7 +127,7 @@ function CartPage() {
                         }
                 </div>
                         {
-                            (items.length === 0?  "": <CartTotalPriceBanner/>)
+                            ( (items && items.length > 0) ? <CartTotalPriceBanner/> : "" )
                         }
             </div>
             <Footer />
