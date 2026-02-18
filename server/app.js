@@ -10,6 +10,7 @@ const orderRouter = require('./routes/orderRoutes')
 const cartRouter = require('./routes/cartRoutes')
 const paymentRouter = require('./routes/paymentRoutes')
 const wishlistRouter = require('./routes/wishlistRoutes')
+const adminRouter = require('./routes/adminRoutes')
 const homeController = require('./controllers/homeController')
 const http = require('http')
 const jwt = require('jsonwebtoken')
@@ -17,7 +18,7 @@ const {initializeWebSocket} = require('./socket/index')
 
 // package configurations
 const app = express()
-const httpServer = http.createServer(app) // we are passing express app object as request listener inorder to handle req and res.
+const httpServer = http.createServer(app) // Passing express app object as request listener inorder to handle req and res.
 dotenv.config({path: '.env'})
 
 // general middlewares
@@ -41,6 +42,7 @@ app.use('/orders', orderRouter)
 app.use('/cart', cartRouter)
 app.use('/payments', paymentRouter)
 app.use('/wishlist', wishlistRouter)
+app.use('/admin', adminRouter)
 
 // route handlers
 app.get('/', homeController.displayHomepage)
