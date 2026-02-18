@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 async function getAllProducts(req, res) {
     try {
         const products = await productModel.find().populate('category');
-        res.status(200).json({success: true, productDetails: {products} })
+        res.status(200).json({success: true, products: products })
     } catch(error) {
         console.log("Unable to get products data, server error")
         res.status(500).json({success: false, messgae: "Server error"})

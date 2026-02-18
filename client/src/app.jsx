@@ -18,6 +18,8 @@ import { useEffect, useState } from 'react'
 import Loader from './components/common/Loader'
 import {setUserProfile, setUserRole, setLoginSuccess} from './features/auth/authSlice'
 import ChatbotPage from './pages/ChatbotPage'
+import AdminHomepage from './pages/AdminHomepage'
+import AdminProducts from './pages/AdminProducts'
 
   function App() {
     
@@ -62,6 +64,8 @@ import ChatbotPage from './pages/ChatbotPage'
                 <Route path='/otp' element={<OTPPage />}></Route>
                 <Route path='/orders/payment-gateway-selection' element={<PaymentGatewaySelectionPage />}></Route>
                 <Route path='/chat' element={<ChatbotPage />}></Route>
+                <Route path='/admin' element={<AdminHomepage />}></Route>
+                <Route path='/admin/products' element={<AdminProducts />}></Route>
                 <Route path='*' element={<FallbackPage />}></Route>
             </Routes>
         </>
