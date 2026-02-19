@@ -9,7 +9,7 @@ function ProductCard({ product }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="self-start justify-center rounded-lg border border-base-300 shadow-sm bg-base-100 w-72 cursor-pointer">
+    <div className="self-start justify-center rounded-lg border border-base-300 shadow-sm bg-base-100 w-72 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-default">
       {/* Product Image */}
       <figure className="h-50 bg-base-200 relative" onClick={() => setExpanded((prev) => !prev)}>
         {product.images ? (
