@@ -1,6 +1,7 @@
 const productModel  = require('../models/Product')
 const userModel = require('../models/User')
 const orderModel = require('../models/Order')
+const categoryModel = require('../models/Category')
 const bcrypt = require('bcrypt')
 
 async function getAllProducts(req, res) {
@@ -16,7 +17,7 @@ async function getAllProducts(req, res) {
 async function getAllUsers(req, res) {
     try {
         const users = await userModel.find({}, '-password -totpSharedKey');
-        res.status(200).json({success: true, userDetails: {users} })
+        res.status(200).json({success: true, users: users })
     } catch(error) {
         console.log("Unable to get user data, server error")
         res.status(500).json({success: false, messgae: "Server error"})
@@ -30,8 +31,10 @@ async function getStatus(req, res) {
         const totalOrders = orders.length;
 
         const totalUsers = await userModel.countDocuments();
+        const totalProducts = await productModel.countDocuments();
+        const categoryCount = await categoryModel.countDocuments();
 
-        res.status(200).json({success: true, status:{totalOrderWorth, totalOrders, totalUsers} })
+        res.status(200).json({success: true, stats:{totalOrderWorth, totalOrders, totalUsers, totalProducts, categoryCount} })
     } catch(error) {
         console.log("Unable to get status data, server error")
         res.status(500).json({success: false, messgae: "Server error"})
