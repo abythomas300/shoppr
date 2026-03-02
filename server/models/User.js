@@ -37,8 +37,7 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     totpSharedKey: {
-        type: String,
-        required: true
+        type: String
     },
     role: {
         type: String,
